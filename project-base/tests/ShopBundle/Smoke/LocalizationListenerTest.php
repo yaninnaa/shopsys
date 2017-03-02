@@ -10,7 +10,7 @@ use Tests\ShopBundle\Test\DatabaseTestCase;
 
 class LocalizationListenerTest extends DatabaseTestCase
 {
-    public function testProductDetailOnFirstDomainHasEnglishLocale()
+    public function testProductDetailOnFirstDomainHasCzechLocale()
     {
         $router = $this->getServiceByType(CurrentDomainRouter::class);
         /* @var $router \Shopsys\ShopBundle\Component\Router\CurrentDomainRouter */
@@ -21,14 +21,14 @@ class LocalizationListenerTest extends DatabaseTestCase
         $this->assertSame(200, $this->getClient()->getResponse()->getStatusCode());
         $this->assertGreaterThan(
             0,
-            $crawler->filter('html:contains("Catalogue number")')->count()
+            $crawler->filter('html:contains("Katalogové číslo")')->count()
         );
     }
 
     /**
      * @group multidomain
      */
-    public function testProductDetailOnSecondDomainHasCzechLocale()
+    public function testProductDetailOnSecondDomainHasEnglishLocale()
     {
         $domain = $this->getServiceByType(Domain::class);
         /* @var $domain \Shopsys\ShopBundle\Component\Domain\Domain */
@@ -43,7 +43,7 @@ class LocalizationListenerTest extends DatabaseTestCase
         $this->assertSame(200, $this->getClient()->getResponse()->getStatusCode());
         $this->assertGreaterThan(
             0,
-            $crawler->filter('html:contains("Katalogové číslo")')->count()
+            $crawler->filter('html:contains("Catalogue number")')->count()
         );
     }
 }
