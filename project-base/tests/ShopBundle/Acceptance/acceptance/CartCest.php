@@ -24,13 +24,13 @@ class CartCest
 
         $productDetailPage->addProductIntoCart(3);
         $floatingWindowPage->closeFloatingWindow();
-        $cartBoxPage->seeInCartBox('1 item for CZK10,497.00');
+        $cartBoxPage->seeInCartBox('1 položka za 10 497,00 Kč');
 
         $productDetailPage->addProductIntoCart(3);
         $floatingWindowPage->closeFloatingWindow();
-        $cartBoxPage->seeInCartBox('1 item for CZK20,994.00');
+        $cartBoxPage->seeInCartBox('1 položka za 20 994,00 Kč');
 
-        $me->amOnPage('/cart/');
+        $me->amOnPage('/kosik/');
 
         $cartPage->assertProductQuantity('22" Sencor SLE 22F46DM4 HELLO KITTY', 6);
     }
@@ -43,13 +43,13 @@ class CartCest
         FloatingWindowPage $floatingWindowPage
     ) {
         $me->wantTo('add product to cart from product list');
-        $me->amOnPage('/tv-audio/');
+        $me->amOnPage('/televize-audio/');
         $productListPage->addProductToCartByName('Defender 2.0 SPK-480', 1);
-        $me->see('Product Defender 2.0 SPK-480 (1 pcs) added to the cart');
+        $me->see('Do košíku bylo vloženo zboží');
         $floatingWindowPage->closeFloatingWindow();
-        $cartBoxPage->seeInCartBox('1 item');
-        $me->amOnPage('/cart/');
-        $cartPage->assertProductPrice('Defender 2.0 SPK-480', 'CZK119.00');
+        $cartBoxPage->seeInCartBox('1 položka');
+        $me->amOnPage('/kosik/');
+        $cartPage->assertProductPrice('Defender 2.0 SPK-480', '119,00 Kč');
     }
 
     public function testAddToCartFromHomepage(
@@ -62,11 +62,11 @@ class CartCest
         $me->wantTo('add product to cart from homepage');
         $me->amOnPage('/');
         $homepagePage->addTopProductToCartByName('22" Sencor SLE 22F46DM4 HELLO KITTY', 1);
-        $me->see('Product 22" Sencor SLE 22F46DM4 HELLO KITTY (1 pcs) added to the cart');
+        $me->see('Do košíku bylo vloženo zboží');
         $floatingWindowPage->closeFloatingWindow();
-        $cartBoxPage->seeInCartBox('1 item');
-        $me->amOnPage('/cart/');
-        $cartPage->assertProductPrice('22" Sencor SLE 22F46DM4 HELLO KITTY', 'CZK3,499.00');
+        $cartBoxPage->seeInCartBox('1 položka');
+        $me->amOnPage('/kosik/');
+        $cartPage->assertProductPrice('22" Sencor SLE 22F46DM4 HELLO KITTY', '3 499,00 Kč');
     }
 
     public function testAddToCartFromProductDetail(
@@ -77,12 +77,12 @@ class CartCest
     ) {
         $me->wantTo('add product to cart from product detail');
         $me->amOnPage('/22-sencor-sle-22f46dm4-hello-kitty/');
-        $me->see('Add to cart');
+        $me->see('Vložit do košíku');
         $productDetailPage->addProductIntoCart(3);
-        $me->see('Product 22" Sencor SLE 22F46DM4 HELLO KITTY (3 pcs) added to the cart');
+        $me->see('Do košíku bylo vloženo zboží');
         $floatingWindowPage->closeFloatingWindow();
-        $cartBoxPage->seeInCartBox('1 item for CZK10,497.00');
-        $me->amOnPage('/cart/');
+        $cartBoxPage->seeInCartBox('1 položka za 10 497,00 Kč');
+        $me->amOnPage('/kosik/');
         $me->see('22" Sencor SLE 22F46DM4 HELLO KITTY');
     }
 
@@ -93,12 +93,12 @@ class CartCest
     ) {
         $me->wantTo('change items in cart and recalculate price');
         $me->amOnPage('/22-sencor-sle-22f46dm4-hello-kitty/');
-        $me->see('Add to cart');
+        $me->see('Vložit do košíku');
         $productDetailPage->addProductIntoCart(3);
-        $me->clickByText('Go to cart');
+        $me->clickByText('Přejít do košíku');
 
         $cartPage->changeProductQuantity('22" Sencor SLE 22F46DM4 HELLO KITTY', 10);
-        $cartPage->assertTotalPriceWithVat('CZK34,990.00');
+        $cartPage->assertTotalPriceWithVat('34 990,00 Kč');
     }
 
     public function testRemovingItemsFromCart(
@@ -113,7 +113,7 @@ class CartCest
         $me->amOnPage('/jura-impressa-j9-tft-carbon/');
         $productDetailPage->addProductIntoCart();
 
-        $me->amOnPage('/cart/');
+        $me->amOnPage('/kosik/');
         $cartPage->assertProductIsInCartByName('JURA Impressa J9 TFT Carbon');
         $cartPage->assertProductIsInCartByName('PANASONIC DMC FT5EP');
 
@@ -121,7 +121,7 @@ class CartCest
         $cartPage->assertProductIsNotInCartByName('JURA Impressa J9 TFT Carbon');
 
         $cartPage->removeProductFromCart('PANASONIC DMC FT5EP');
-        $me->see('Your cart is unfortunately empty.');
+        $me->see('Váš nákupní košík je bohužel prázdný.');
     }
 
     public function testAddingDistinctProductsToCart(
@@ -136,14 +136,14 @@ class CartCest
         $me->amOnPage('/22-sencor-sle-22f46dm4-hello-kitty/');
         $productDetailPage->addProductIntoCart();
         $floatingWindowPage->closeFloatingWindow();
-        $cartBoxPage->seeInCartBox('1 item for CZK3,499.00');
+        $cartBoxPage->seeInCartBox('1 položka za 3 499,00 Kč');
 
         $me->amOnPage('/canon-pixma-ip7250/');
         $productDetailPage->addProductIntoCart();
         $floatingWindowPage->closeFloatingWindow();
-        $cartBoxPage->seeInCartBox('2 items for CZK27,687.00');
+        $cartBoxPage->seeInCartBox('2 položky za 27 687,00 Kč');
 
-        $me->amOnPage('/cart/');
+        $me->amOnPage('/kosik/');
         $cartPage->assertProductIsInCartByName('22" Sencor SLE 22F46DM4 HELLO KITTY');
         $cartPage->assertProductIsInCartByName('Canon PIXMA iP7250');
     }
@@ -155,14 +155,14 @@ class CartCest
     ) {
         $me->wantTo('see that prices of products in cart are calculated well');
 
-        $me->amOnPage('/aquila-aquagym-non-carbonated-spring-water/');
+        $me->amOnPage('/aquila-aquagym-pramenita-voda-neperliva/');
         $productDetailPage->addProductIntoCart(10);
-        $me->amOnPage('/100-czech-crowns-ticket/');
+        $me->amOnPage('/stokorunova-poukazka/');
         $productDetailPage->addProductIntoCart(100);
         $me->amOnPage('/premiumcord-micro-usb-a-b-1m/');
         $productDetailPage->addProductIntoCart(75);
 
-        $me->amOnPage('/cart/');
-        $cartPage->assertTotalPriceWithVat('CZK17,350.00');
+        $me->amOnPage('/kosik/');
+        $cartPage->assertTotalPriceWithVat('17 350,00 Kč');
     }
 }

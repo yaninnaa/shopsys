@@ -11,7 +11,7 @@ class ProductImageUploadCest
     const IMAGE_UPLOAD_FIELD_ID = 'product_edit_form_imagesToUpload_file';
     const SAVE_BUTTON_NAME = 'product_edit_form[save]';
 
-    const EXPECTED_SUCCESS_MESSAGE = 'Product 22" Sencor SLE 22F46DM4 HELLO KITTY modified';
+    const EXPECTED_SUCCESS_MESSAGE = 'Bylo upraveno zboží 22" Sencor SLE 22F46DM4 HELLO KITTY';
 
     public function testSuccessfulImageUpload(AcceptanceTester $me, EntityEditPage $entityEditPage, LoginPage $loginPage)
     {

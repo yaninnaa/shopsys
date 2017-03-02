@@ -35,7 +35,7 @@ class PromoCodeInlineEditCest
         $newRowId = $inlineEditPage->getHighestRowId();
 
         $inlineEditPage->assertSeeInColumn($newRowId, 'code', 'test created');
-        $inlineEditPage->assertSeeInColumn($newRowId, 'percent', '5%');
+        $inlineEditPage->assertSeeInColumn($newRowId, 'percent', '5 %');
     }
 
     public function testPromoCodeDelete(AcceptanceTester $me, LoginPage $loginPage, InlineEditPage $inlineEditPage)
@@ -47,6 +47,6 @@ class PromoCodeInlineEditCest
         $inlineEditPage->delete(1);
 
         $inlineEditPage->assertDontSeeRow(1);
-        $me->see('Promo code test deleted.');
+        $me->see('Slevový kupón test byl smazán');
     }
 }

@@ -20,15 +20,15 @@ class CustomerRegistrationCest
         $layoutPage->clickOnRegistration();
         $registrationPage->register('Roman', 'Štěpánek', 'no-reply.16@netdevelo.cz', 'user123', 'user123');
         $me->wait(self::MINIMUM_FORM_SUBMIT_WAIT_TIME);
-        $me->see('You have been successfully registered');
+        $me->see('Byli jste úspěšně zaregistrováni');
         $me->see('Roman Štěpánek');
-        $me->see('Log out');
+        $me->see('Odhlásit se');
     }
 
     public function testAlreadyUsedEmail(RegistrationPage $registrationPage, AcceptanceTester $me)
     {
         $me->wantTo('use already used email while registration');
-        $me->amOnPage('/registration/');
+        $me->amOnPage('/registrace/');
         $registrationPage->register('Roman', 'Štěpánek', 'no-reply@netdevelo.cz', 'user123', 'user123');
         $registrationPage->seeEmailError('Email no-reply@netdevelo.cz is already registered');
     }
@@ -36,8 +36,8 @@ class CustomerRegistrationCest
     public function testPasswordMismatch(RegistrationPage $registrationPage, AcceptanceTester $me)
     {
         $me->wantTo('use mismatching passwords while registration');
-        $me->amOnPage('/registration/');
+        $me->amOnPage('/registrace/');
         $registrationPage->register('Roman', 'Štěpánek', 'no-reply.16@netdevelo.cz', 'user123', 'missmatchingPassword');
-        $registrationPage->seePasswordError('Passwords do not match');
+        $registrationPage->seePasswordError('Hesla se neshodují');
     }
 }
