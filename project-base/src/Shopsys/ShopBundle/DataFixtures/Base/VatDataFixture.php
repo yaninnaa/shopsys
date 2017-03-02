@@ -20,19 +20,19 @@ class VatDataFixture extends AbstractReferenceFixture
     {
         $vatData = new VatData();
 
-        $vatData->name = 'Zero rate';
+        $vatData->name = 'Nulová sazba';
         $vatData->percent = '0';
         $this->createVat($vatData, self::VAT_ZERO);
 
-        $vatData->name = 'Second reduced rate';
+        $vatData->name = 'Druhá nižší sazba';
         $vatData->percent = '10';
         $this->createVat($vatData, self::VAT_SECOND_LOW);
 
-        $vatData->name = 'Reduced rate';
+        $vatData->name = 'Nižší sazba';
         $vatData->percent = '15';
         $this->createVat($vatData, self::VAT_LOW);
 
-        $vatData->name = 'Standard rate';
+        $vatData->name = 'Vyšší sazba';
         $vatData->percent = '21';
         $this->createVat($vatData, self::VAT_HIGH);
     }

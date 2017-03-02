@@ -36,9 +36,9 @@ class SettingValueDataFixture extends AbstractReferenceFixture implements Depend
 
         $orderSentText = '
             <p>
-                Order number {number} has been sent, thank you for your purchase.
-                We will contact you about next order status. <br /><br />
-                <a href="{order_detail_url}">Track</a> the status of your order. <br />
+                Objednávka číslo {number} byla odeslána, děkujeme za Váš nákup.
+                Budeme Vás kontaktovat o dalším průběhu vyřizování. <br /><br />
+                Uschovejte si permanentní <a href="{order_detail_url}">odkaz na detail objednávky</a>. <br />
                 {transport_instructions} <br />
                 {payment_instructions} <br />
             </p>
@@ -56,9 +56,9 @@ class SettingValueDataFixture extends AbstractReferenceFixture implements Depend
         $manager->persist(new SettingValue(PricingSetting::DEFAULT_DOMAIN_CURRENCY, $defaultCurrency->getId(), Domain::FIRST_DOMAIN_ID));
         $manager->persist(new SettingValue(Setting::DEFAULT_AVAILABILITY_IN_STOCK, $defaultInStockAvailability->getId(), SettingValue::DOMAIN_ID_COMMON));
         $manager->persist(new SettingValue(PricingSetting::FREE_TRANSPORT_AND_PAYMENT_PRICE_LIMIT, null, Domain::FIRST_DOMAIN_ID));
-        $manager->persist(new SettingValue(SeoSettingFacade::SEO_META_DESCRIPTION_MAIN_PAGE, 'ShopSys Framework - the best solution for your eshop.', Domain::FIRST_DOMAIN_ID));
-        $manager->persist(new SettingValue(SeoSettingFacade::SEO_TITLE_MAIN_PAGE, 'ShopSys Framework - Title page', Domain::FIRST_DOMAIN_ID));
-        $manager->persist(new SettingValue(SeoSettingFacade::SEO_TITLE_ADD_ON, '| Demo eshop', Domain::FIRST_DOMAIN_ID));
+        $manager->persist(new SettingValue(SeoSettingFacade::SEO_META_DESCRIPTION_MAIN_PAGE, 'ShopSys Framework - nejlepší řešení pro váš internetový obchod.', Domain::FIRST_DOMAIN_ID));
+        $manager->persist(new SettingValue(SeoSettingFacade::SEO_TITLE_MAIN_PAGE, 'ShopSys Framework - Titulní strana', Domain::FIRST_DOMAIN_ID));
+        $manager->persist(new SettingValue(SeoSettingFacade::SEO_TITLE_ADD_ON, '| Demo obchod', Domain::FIRST_DOMAIN_ID));
         $manager->persist(new SettingValue(Setting::TERMS_AND_CONDITIONS_ARTICLE_ID, null, Domain::FIRST_DOMAIN_ID));
         $manager->persist(new SettingValue(Setting::COOKIES_ARTICLE_ID, null, Domain::FIRST_DOMAIN_ID));
         $manager->persist(new SettingValue(Setting::DOMAIN_DATA_CREATED, true, Domain::FIRST_DOMAIN_ID));

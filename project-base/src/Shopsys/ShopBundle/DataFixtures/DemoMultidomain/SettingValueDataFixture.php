@@ -35,9 +35,9 @@ class SettingValueDataFixture extends AbstractReferenceFixture implements Depend
 
         $orderSentText = '
             <p>
-                Objednávka číslo {number} byla odeslána, děkujeme za Váš nákup.
-                Budeme Vás kontaktovat o dalším průběhu vyřizování. <br /><br />
-                Uschovejte si permanentní <a href="{order_detail_url}">odkaz na detail objednávky</a>. <br />
+                Order number {number} has been sent, thank you for your purchase.
+                We will contact you about next order status. <br /><br />
+                <a href="{order_detail_url}">Track</a> the status of your order. <br />
                 {transport_instructions} <br />
                 {payment_instructions} <br />
             </p>
@@ -50,11 +50,11 @@ class SettingValueDataFixture extends AbstractReferenceFixture implements Depend
 
         $setting->setForDomain(
             SeoSettingFacade::SEO_META_DESCRIPTION_MAIN_PAGE,
-            'ShopSys Framework - nejlepší řešení pro váš internetový obchod.',
+            'ShopSys Framework - the best solution for your eshop.',
             2
         );
-        $setting->setForDomain(SeoSettingFacade::SEO_TITLE_MAIN_PAGE, 'ShopSys Framework - Titulní strana', 2);
-        $setting->setForDomain(SeoSettingFacade::SEO_TITLE_ADD_ON, '| Demo obchod', 2);
+        $setting->setForDomain(SeoSettingFacade::SEO_TITLE_MAIN_PAGE, 'ShopSys Framework - Title page', 2);
+        $setting->setForDomain(SeoSettingFacade::SEO_TITLE_ADD_ON, '| Demo eshop', 2);
     }
 
     /**
