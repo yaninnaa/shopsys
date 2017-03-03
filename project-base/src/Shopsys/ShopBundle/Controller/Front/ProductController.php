@@ -4,6 +4,7 @@ namespace Shopsys\ShopBundle\Controller\Front;
 
 use Shopsys\ShopBundle\Component\Controller\FrontBaseController;
 use Shopsys\ShopBundle\Component\Domain\Domain;
+use Shopsys\ShopBundle\Component\Paginator\Pagination;
 use Shopsys\ShopBundle\Form\Front\Product\ProductFilterFormTypeFactory;
 use Shopsys\ShopBundle\Model\Advert\AdvertPositionList;
 use Shopsys\ShopBundle\Model\Category\Category;
@@ -22,8 +23,12 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductController extends FrontBaseController
 {
     const SEARCH_TEXT_PARAMETER = 'q';
-    const PAGE_QUERY_PARAMETER = 'page';
     const PRODUCTS_PER_PAGE = 12;
+
+    /**
+     * @var \Shopsys\ShopBundle\Component\Paginator\Pagination
+     */
+    private $pagination;
 
     /**
      * @var \Shopsys\ShopBundle\Form\Front\Product\ProductFilterFormTypeFactory
@@ -44,11 +49,6 @@ class ProductController extends FrontBaseController
      * @var \Shopsys\ShopBundle\Model\Product\ProductOnCurrentDomainFacade
      */
     private $productOnCurrentDomainFacade;
-
-    /**
-     * @var \Shopsys\ShopBundle\Twig\RequestExtension
-     */
-    private $requestExtension;
 
     /**
      * @var \Shopsys\ShopBundle\Model\Product\Listing\ProductListOrderingModeForListFacade
@@ -76,7 +76,7 @@ class ProductController extends FrontBaseController
     private $brandFacade;
 
     public function __construct(
-        RequestExtension $requestExtension,
+        Pagination $pagination,
         CategoryFacade $categoryFacade,
         Domain $domain,
         ProductOnCurrentDomainFacade $productOnCurrentDomainFacade,
@@ -87,7 +87,7 @@ class ProductController extends FrontBaseController
         ModuleFacade $moduleFacade,
         BrandFacade $brandFacade
     ) {
-        $this->requestExtension = $requestExtension;
+        $this->pagination = $pagination;
         $this->categoryFacade = $categoryFacade;
         $this->domain = $domain;
         $this->productOnCurrentDomainFacade = $productOnCurrentDomainFacade;
@@ -129,13 +129,12 @@ class ProductController extends FrontBaseController
      */
     public function listByCategoryAction(Request $request, $id)
     {
-        $category = $this->categoryFacade->getVisibleOnDomainById($this->domain->getId(), $id);
-
-        $requestPage = $request->get(self::PAGE_QUERY_PARAMETER);
-        if (!$this->isRequestPageValid($requestPage)) {
-            return $this->redirectToRoute('front_product_list', $this->getRequestParametersWithoutPage());
+        try {
+            $page = $this->pagination->getPage($request);
+        } catch (\Shopsys\ShopBundle\Component\Paginator\Exception\InvalidRequestedPageException $e) {
+            return $this->redirectToRoute($e->getRedirectRoute(), $e->getRedirectParameters());
         }
-        $page = $requestPage === null ? 1 : (int)$requestPage;
+        $category = $this->categoryFacade->getVisibleOnDomainById($this->domain->getId(), $id);
 
         $orderingMode = $this->productListOrderingModeForListFacade->getOrderingModeFromRequest(
             $request
@@ -190,11 +189,11 @@ class ProductController extends FrontBaseController
      */
     public function listByBrandAction(Request $request, $id)
     {
-        $requestPage = $request->get(self::PAGE_QUERY_PARAMETER);
-        if (!$this->isRequestPageValid($requestPage)) {
-            return $this->redirectToRoute('front_brand_detail', $this->getRequestParametersWithoutPage());
+        try {
+            $page = $this->pagination->getPage($request);
+        } catch (\Shopsys\ShopBundle\Component\Paginator\Exception\InvalidRequestedPageException $e) {
+            return $this->redirectToRoute($e->getRedirectRoute(), $e->getRedirectParameters());
         }
-        $page = $requestPage === null ? 1 : (int)$requestPage;
 
         $orderingMode = $this->productListOrderingModeForBrandFacade->getOrderingModeFromRequest(
             $request
@@ -226,11 +225,11 @@ class ProductController extends FrontBaseController
     {
         $searchText = $request->query->get(self::SEARCH_TEXT_PARAMETER);
 
-        $requestPage = $request->get(self::PAGE_QUERY_PARAMETER);
-        if (!$this->isRequestPageValid($requestPage)) {
-            return $this->redirectToRoute('front_product_search', $this->getRequestParametersWithoutPage());
+        try {
+            $page = $this->pagination->getPage($request);
+        } catch (\Shopsys\ShopBundle\Component\Paginator\Exception\InvalidRequestedPageException $e) {
+            return $this->redirectToRoute($e->getRedirectRoute(), $e->getRedirectParameters());
         }
-        $page = $requestPage === null ? 1 : (int)$requestPage;
 
         $orderingMode = $this->productListOrderingModeForSearchFacade->getOrderingModeFromRequest(
             $request
@@ -359,24 +358,5 @@ class ProductController extends FrontBaseController
             'activeOrderingMode' => $orderingMode,
             'cookieName' => $productListOrderingConfig->getCookieName(),
         ]);
-    }
-
-    /**
-     * @param string|null $page
-     * @return bool
-     */
-    private function isRequestPageValid($page)
-    {
-        return $page === null || (preg_match('@^([2-9]|[1-9][0-9]+)$@', $page));
-    }
-
-    /**
-     * @return array
-     */
-    private function getRequestParametersWithoutPage()
-    {
-        $parameters = $this->requestExtension->getAllRequestParams();
-        unset($parameters[self::PAGE_QUERY_PARAMETER]);
-        return $parameters;
     }
 }
