@@ -341,6 +341,10 @@ class RouteConfigCustomization
                 $config->addExtraRequestDataSet('Expect redirect when the hash is invalid.')
                     ->setParameter('hash', 'invalidHash')
                     ->setExpectedStatusCode(302);
+            })
+            ->customizeByRouteName('front_product_recently_bought', function (RouteConfig $config) {
+                $config->addExtraRequestDataSet('Log as demo user "Jaromír Jágr" to see non-empty recently bought list.')
+                    ->setAuth(new BasicHttpAuth('no-reply@netdevelo.cz', 'user123'));
             });
     }
 
