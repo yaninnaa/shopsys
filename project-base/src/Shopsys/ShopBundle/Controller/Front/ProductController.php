@@ -384,4 +384,9 @@ class ProductController extends FrontBaseController
         unset($parameters[self::PAGE_QUERY_PARAMETER]);
         return $parameters;
     }
+
+    public function recentlyBoughtAction()
+    {
+        return $this->render('@ShopsysShop/Front/Content/Product/recentlyBought.html.twig');
+    }
 }

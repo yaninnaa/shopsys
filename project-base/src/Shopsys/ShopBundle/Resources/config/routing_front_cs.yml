@@ -38,6 +38,10 @@ front_product_search:
   path: /hledani
   defaults: { _controller: ShopsysShopBundle:Front\Product:search }
 
+front_product_recently_bought:
+  path: /nadavno-nakoupeno/
+  defaults: { _controller: ShopsysShopBundle:Front\Product:recentlyBought }
+
 front_registration_register:
   path: /registrace/
   defaults: { _controller: ShopsysShopBundle:Front\Registration:register }
