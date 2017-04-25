@@ -5,5 +5,13 @@
 {% block main_content %}
     <h1>{{ 'Your recently bought products'|trans }}</h1>
 
-    <p>{{ 'You have not bought any products in recent history.'|trans }}</p>
+	{% if products is not empty %}
+		<ul>
+			{% for product in products %}
+				<li>{{ product.name }}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+      <p>{{ 'You have not bought any products in recent history.'|trans }}</p>
+	{% endif %}
 {% endblock %}

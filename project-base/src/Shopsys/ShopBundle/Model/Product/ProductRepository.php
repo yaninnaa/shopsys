@@ -9,7 +9,9 @@ use Shopsys\ShopBundle\Component\Doctrine\QueryBuilderService;
 use Shopsys\ShopBundle\Component\Domain\Config\DomainConfig;
 use Shopsys\ShopBundle\Component\Paginator\QueryPaginator;
 use Shopsys\ShopBundle\Model\Category\Category;
+use Shopsys\ShopBundle\Model\Customer\User;
 use Shopsys\ShopBundle\Model\Localization\Localization;
+use Shopsys\ShopBundle\Model\Order\Item\OrderProduct;
 use Shopsys\ShopBundle\Model\Pricing\Group\PricingGroup;
 use Shopsys\ShopBundle\Model\Product\Brand\Brand;
 use Shopsys\ShopBundle\Model\Product\Filter\ProductFilterData;
@@ -784,5 +786,20 @@ class ProductRepository
         }
 
         return $product;
+    }
+
+    /**
+     * @param \Shopsys\ShopBundle\Model\Customer\User $user
+     * @return \Shopsys\ShopBundle\Model\Product\Product[]
+     */
+    public function getRecentlyBoughtProducts(User $user)
+    {
+        return $this->getAllListableQueryBuilder($user->getDomainId(), $user->getPricingGroup())
+            ->join(OrderProduct::class, 'op', Join::WITH, 'op.product = p')
+            ->join('op.order', 'o')
+            ->andWhere('o.customer = :user')->setParameter('user', $user)
+            ->orderBy('o.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }

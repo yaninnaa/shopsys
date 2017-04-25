@@ -305,4 +305,18 @@ class ProductOnCurrentDomainFacade
             $this->currentCustomer->getPricingGroup()
         );
     }
+
+    /**
+     * @return \Shopsys\ShopBundle\Model\Product\Product[]
+     */
+    public function getRecentlyBoughtProducts()
+    {
+        $user = $this->currentCustomer->findCurrentUser();
+
+        if ($user === null) {
+            return [];
+        }
+
+        return $this->productRepository->getRecentlyBoughtProducts($user);
+    }
 }

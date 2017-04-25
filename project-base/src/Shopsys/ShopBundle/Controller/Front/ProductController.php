@@ -387,6 +387,10 @@ class ProductController extends FrontBaseController
 
     public function recentlyBoughtAction()
     {
-        return $this->render('@ShopsysShop/Front/Content/Product/recentlyBought.html.twig');
+        $products = $this->productOnCurrentDomainFacade->getRecentlyBoughtProducts();
+
+        return $this->render('@ShopsysShop/Front/Content/Product/recentlyBought.html.twig', [
+            'products' => $products,
+        ]);
     }
 }
