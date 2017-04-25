@@ -50,7 +50,7 @@ msgstr "-- Vyberte plochu --"
 msgid "-- Choose article --"
 msgstr "-- Vyberte článek --"
 
-#: ArticleFormType.php:79
+#: ArticleFormType.php:80
 msgid "-- Choose article position --"
 msgstr "-- Vyberte umístění článku --"
 
@@ -316,15 +316,15 @@ msgstr "Plocha"
 msgid "Article"
 msgstr "Článek"
 
-#: ArticleController.php:222
+#: ArticleController.php:224
 msgid "Article \"%name%\" set for displaying cookies information. This setting will be lost. Do you really want to delete it?"
 msgstr "Článek \"%name%\" je nastaven pro zobrazení informací o cookies. Toto nastavení bude ztraceno. Opravdu si jej přejete smazat?"
 
-#: ArticleController.php:217
+#: ArticleController.php:219
 msgid "Article \"%name%\" set for displaying terms and conditions. This setting will be lost. Do you really want to delete it?"
 msgstr "Článek \"%name%\" je nastaven pro zobrazení obchodních podmínek. Toto nastavení bude ztraceno. Opravdu si jej přejete smazat?"
 
-#: ArticleController.php:166
+#: ArticleController.php:168
 msgid "Article <strong><a href=\"{{ url }}\">{{ name }}</a></strong> created"
 msgstr "Byl vytvořen článek <strong><a href=\"{{ url }}\">{{ name }}</a></strong>"
 
@@ -332,13 +332,17 @@ msgstr "Byl vytvořen článek <strong><a href=\"{{ url }}\">{{ name }}</a></str
 msgid "Article <strong><a href=\"{{ url }}\">{{ name }}</a></strong> modified"
 msgstr "Byl upraven článek <strong><a href=\"{{ url }}\">{{ name }}</a></strong>"
 
-#: ArticleController.php:197
+#: ArticleController.php:199
 msgid "Article <strong>{{ name }}</strong> deleted"
 msgstr "Článek <strong>{{ name }}</strong> byl smazán"
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/detail.html.twig:12
 msgid "Article data"
 msgstr "Údaje článku"
+
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Article/homepageList.html.twig:2
+msgid "Articles"
+msgstr "Články"
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:21
 msgid "Articles in footer"
@@ -348,13 +352,17 @@ msgstr "Články v patičce"
 msgid "Articles in upper menu"
 msgstr "Články v horním menu"
 
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:24
+msgid "Articles on homepage"
+msgstr "Články na titulní stránce"
+
 #: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:3
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:4
 msgid "Articles overview"
 msgstr "Přehled článků"
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:24
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:27
 msgid "Articles without positioning"
 msgstr "Články bez umístění"
 
@@ -1266,7 +1274,7 @@ msgstr "Slevový kód byl odebrán z objednávky."
 msgid "Discount coupon"
 msgstr "Slevový kupón"
 
-#: PromoCodeController.php:56
+#: PromoCodeController.php:71
 msgid "Discount coupon <strong>{{ code }}</strong> deleted."
 msgstr "Slevový kupón <strong>{{ code }}</strong> byl smazán"
 
@@ -1351,7 +1359,7 @@ msgstr "Opravdu chcete odstranit tohoto administrátora?"
 msgid "Do you really want to remove this advert?"
 msgstr "Opravdu chcete odstranit tuto reklamu?"
 
-#: ArticleController.php:227
+#: ArticleController.php:229
 msgid "Do you really want to remove this article?"
 msgstr "Opravdu chcete odstranit tento článek?"
 
@@ -1818,7 +1826,7 @@ msgstr "Soubor je příliš velký"
 msgid "File type not supported."
 msgstr "Typ souboru není podporován."
 
-#: FileUploadType.php:144
+#: FileUploadType.php:143
 msgid "File upload failed"
 msgstr "Nahrání souboru se nezdařilo."
 
@@ -2488,7 +2496,7 @@ msgstr "Umístění"
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Login/loginForm.html.twig:33
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Login/windowForm.html.twig:35
 #: src/Shopsys/ShopBundle/Resources/views/Front/Inline/Newsletter/subscription.html.twig:14
-#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:115
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:118
 msgid "Log in"
 msgstr "Přihlásit se"
 
@@ -2501,7 +2509,7 @@ msgid "Log in failed."
 msgstr "Přihlášení se nepodařilo."
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Inline/Menu/menu.html.twig:28
-#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:102
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:105
 #: src/Shopsys/ShopBundle/Resources/views/Front/Layout/layout.html.twig:11
 msgid "Log out"
 msgstr "Odhlásit se"
@@ -2667,7 +2675,7 @@ msgid "My orders"
 msgstr "Mé objednávky"
 
 #: AdvertController.php:141
-#: ArticleController.php:264
+#: ArticleController.php:266
 #: AvailabilityGridFactory.php:55
 #: BrandController.php:125
 #: CountryGridFactory.php:54
@@ -2817,7 +2825,7 @@ msgstr "Nebyly nalezeny žádné sazby DPH. Nejprve musíte nějakou vytvořit."
 msgid "No advertising found. You have to create some first."
 msgstr "Nebyla nalezena žádná reklama. Nejprve musíte nějakou vytvořit."
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:34
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:37
 msgid "No articles found on this domain. You have to create some first."
 msgstr "Na této doméně nebyly nalezeny žádné články. Nejprve musíte nějaký vytvořit."
 
@@ -3316,7 +3324,7 @@ msgstr "Prosím překontrolujte následující informace:"
 #: AdvertController.php:101
 #: AdvertController.php:196
 #: ArticleController.php:116
-#: ArticleController.php:176
+#: ArticleController.php:178
 #: BestsellingProductController.php:104
 #: BrandController.php:97
 #: BrandController.php:168
@@ -3622,6 +3630,15 @@ msgstr "Rychlé vyhledávání"
 msgid "Rate can't be modified. It is necessary to create new rate, remove existing one and replace it with new one."
 msgstr "Výši sazby nelze upravit. Je třeba vytvořit novou sazbu a starou odstranit s nahrazením za novou."
 
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:98
+msgid "Recently bought"
+msgstr "Nedávno nakoupené"
+
+#: SimpleBreadcrumbGenerator.php:54
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Product/recentlyBought.html.twig:4
+msgid "Recently bought products"
+msgstr "Nedávno nakoupené zboží"
+
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Registration/register.html.twig:26
 msgid "Register"
 msgstr "Registrovat"
@@ -3637,7 +3654,7 @@ msgstr "Registrovaní zákazníci"
 #: SimpleBreadcrumbGenerator.php:52
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Registration/register.html.twig:4
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Registration/register.html.twig:8
-#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:122
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:125
 msgid "Registration"
 msgstr "Registrace"
 
@@ -3748,7 +3765,7 @@ msgstr "Uložit změny"
 msgid "Save changes in all templates"
 msgstr "Uložit změny ve všech šablonách"
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:29
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:32
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/list.html.twig:69
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TransportAndPayment/list.html.twig:17
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Grid/Grid.html.twig:38
@@ -3856,7 +3873,7 @@ msgstr "Zvolený administrátor neexistuje."
 msgid "Selected advertisement doesn't exist."
 msgstr "Zvolená reklama neexistuje."
 
-#: ArticleController.php:203
+#: ArticleController.php:205
 msgid "Selected article doesn't exist."
 msgstr "Zvolený článek neexistuje."
 
@@ -3885,7 +3902,7 @@ msgstr "Zvolená měna neexistuje."
 msgid "Selected customer doesn't exist."
 msgstr "Zvolený zákazník neexistuje"
 
-#: PromoCodeController.php:62
+#: PromoCodeController.php:77
 msgid "Selected discount coupon doesn't exist."
 msgstr "Zvolený slevový kupón neexistuje."
 
@@ -5097,6 +5114,10 @@ msgstr "Byli jste úspěšně přihlášeni k odběru našeho newsletteru."
 msgid "You have made changes, don't forget to save them!"
 msgstr "Provedli jste změny, nezapomeňte je uložit!"
 
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Product/recentlyBought.html.twig:12
+msgid "You have not bought any products in recent history."
+msgstr "Nekoupili jste žádné produkty v nedávné historii."
+
 #: CustomerController.php:60
 #: CustomerController.php:94
 #: CustomerController.php:131
@@ -5134,6 +5155,10 @@ msgstr "Vaše údaje byly úspěšně zaktualizovány"
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Order/PromoCode/index.html.twig:11
 msgid "Your discount"
 msgstr "Vaše sleva"
+
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Product/recentlyBought.html.twig:7
+msgid "Your recently bought products"
+msgstr "Vaše nedávno nakoupené zboží"
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Product/detail.html.twig:374
 msgid "Zboží.cz"
@@ -5350,6 +5375,10 @@ msgstr "není"
 msgid "not entered"
 msgstr "není zadáno"
 
+#: ArticleFormType.php:77
+msgid "on homepage"
+msgstr "na titulní stránce"
+
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Superadmin/cssDocumentation.html.twig:59
 msgid "one dash \"-\" represents separator in multi-word title"
 msgstr "jedna pomlčka \"-\" je oddělovačem ve víceslovném názvu"
@@ -5418,7 +5447,7 @@ msgstr "neregistrovaný zákazník"
 msgid "uses"
 msgstr "používá"
 
-#: ArticleFormType.php:77
+#: ArticleFormType.php:78
 msgid "without positoning"
 msgstr "bez umístění"
 

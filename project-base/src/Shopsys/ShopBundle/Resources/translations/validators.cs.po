@@ -42,10 +42,6 @@ msgstr "Název firmy nesmí být delší než {{ limit }} znaků"
 msgid "Country name cannot be longer than {{ limit }} characters"
 msgstr "Název státu nesmí být delší než {{ limit }} znaků"
 
-#: PromoCodeFormType.php:49
-msgid "Discount coupon with this code already exists"
-msgstr "Slevový kupón s tímto kódem již existuje."
-
 #: MailTemplateFormType.php:81
 msgid "E-mail subject cannot be longer than {{ limit }} characters"
 msgstr "Předmět e-mailu nesmí být delší než {{ limit }} znaků"
@@ -200,7 +196,7 @@ msgstr "Prosím vyberte reklamní plochu"
 msgid "Please choose advertisement type"
 msgstr "Prosím vyberte typ reklamy"
 
-#: ArticleFormType.php:81
+#: ArticleFormType.php:82
 msgid "Please choose article placement"
 msgstr "Prosím vyberte umístění článku"
 
@@ -336,7 +332,7 @@ msgstr "Prosím zadejte výchozí měnu"
 msgid "Please enter default pricing group"
 msgstr "Prosím zadejte výchozí cenovou skupinu"
 
-#: PromoCodeFormType.php:57
+#: PromoCodeFormType.php:54
 msgid "Please enter discount percentage"
 msgstr "Vyplňte prosím procento slevy."
 
@@ -553,7 +549,7 @@ msgstr "Vyplňte prosím platný e-mail"
 msgid "Please enter valid quantity"
 msgstr "Zadejte prosím platné množství"
 
-#: src/Shopsys/ShopBundle/Form/Admin/PromoCode/PromoCodeFormType.php:64
+#: src/Shopsys/ShopBundle/Form/Admin/PromoCode/PromoCodeFormType.php:61
 msgid "Please enter whole number."
 msgstr "Zadejte prosím celé číslo."
 

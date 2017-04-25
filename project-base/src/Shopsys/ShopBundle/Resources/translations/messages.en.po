@@ -50,7 +50,7 @@ msgstr ""
 msgid "-- Choose article --"
 msgstr ""
 
-#: ArticleFormType.php:79
+#: ArticleFormType.php:80
 msgid "-- Choose article position --"
 msgstr ""
 
@@ -316,15 +316,15 @@ msgstr ""
 msgid "Article"
 msgstr ""
 
-#: ArticleController.php:222
+#: ArticleController.php:224
 msgid "Article \"%name%\" set for displaying cookies information. This setting will be lost. Do you really want to delete it?"
 msgstr ""
 
-#: ArticleController.php:217
+#: ArticleController.php:219
 msgid "Article \"%name%\" set for displaying terms and conditions. This setting will be lost. Do you really want to delete it?"
 msgstr ""
 
-#: ArticleController.php:166
+#: ArticleController.php:168
 msgid "Article <strong><a href=\"{{ url }}\">{{ name }}</a></strong> created"
 msgstr ""
 
@@ -332,12 +332,16 @@ msgstr ""
 msgid "Article <strong><a href=\"{{ url }}\">{{ name }}</a></strong> modified"
 msgstr ""
 
-#: ArticleController.php:197
+#: ArticleController.php:199
 msgid "Article <strong>{{ name }}</strong> deleted"
 msgstr ""
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/detail.html.twig:12
 msgid "Article data"
+msgstr ""
+
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Article/homepageList.html.twig:2
+msgid "Articles"
 msgstr ""
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:21
@@ -348,13 +352,17 @@ msgstr ""
 msgid "Articles in upper menu"
 msgstr ""
 
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:24
+msgid "Articles on homepage"
+msgstr ""
+
 #: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:3
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:4
 msgid "Articles overview"
 msgstr ""
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:24
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:27
 msgid "Articles without positioning"
 msgstr ""
 
@@ -1266,7 +1274,7 @@ msgstr ""
 msgid "Discount coupon"
 msgstr ""
 
-#: PromoCodeController.php:56
+#: PromoCodeController.php:71
 msgid "Discount coupon <strong>{{ code }}</strong> deleted."
 msgstr ""
 
@@ -1351,7 +1359,7 @@ msgstr ""
 msgid "Do you really want to remove this advert?"
 msgstr ""
 
-#: ArticleController.php:227
+#: ArticleController.php:229
 msgid "Do you really want to remove this article?"
 msgstr ""
 
@@ -1818,7 +1826,7 @@ msgstr ""
 msgid "File type not supported."
 msgstr ""
 
-#: FileUploadType.php:144
+#: FileUploadType.php:143
 msgid "File upload failed"
 msgstr ""
 
@@ -2488,7 +2496,7 @@ msgstr ""
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Login/loginForm.html.twig:33
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Login/windowForm.html.twig:35
 #: src/Shopsys/ShopBundle/Resources/views/Front/Inline/Newsletter/subscription.html.twig:14
-#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:115
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:118
 msgid "Log in"
 msgstr ""
 
@@ -2501,7 +2509,7 @@ msgid "Log in failed."
 msgstr ""
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Inline/Menu/menu.html.twig:28
-#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:102
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:105
 #: src/Shopsys/ShopBundle/Resources/views/Front/Layout/layout.html.twig:11
 msgid "Log out"
 msgstr ""
@@ -2667,7 +2675,7 @@ msgid "My orders"
 msgstr ""
 
 #: AdvertController.php:141
-#: ArticleController.php:264
+#: ArticleController.php:266
 #: AvailabilityGridFactory.php:55
 #: BrandController.php:125
 #: CountryGridFactory.php:54
@@ -2817,7 +2825,7 @@ msgstr ""
 msgid "No advertising found. You have to create some first."
 msgstr ""
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:34
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:37
 msgid "No articles found on this domain. You have to create some first."
 msgstr ""
 
@@ -3316,7 +3324,7 @@ msgstr ""
 #: AdvertController.php:101
 #: AdvertController.php:196
 #: ArticleController.php:116
-#: ArticleController.php:176
+#: ArticleController.php:178
 #: BestsellingProductController.php:104
 #: BrandController.php:97
 #: BrandController.php:168
@@ -3622,6 +3630,15 @@ msgstr ""
 msgid "Rate can't be modified. It is necessary to create new rate, remove existing one and replace it with new one."
 msgstr ""
 
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:98
+msgid "Recently bought"
+msgstr ""
+
+#: SimpleBreadcrumbGenerator.php:54
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Product/recentlyBought.html.twig:4
+msgid "Recently bought products"
+msgstr ""
+
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Registration/register.html.twig:26
 msgid "Register"
 msgstr ""
@@ -3637,7 +3654,7 @@ msgstr ""
 #: SimpleBreadcrumbGenerator.php:52
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Registration/register.html.twig:4
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Registration/register.html.twig:8
-#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:122
+#: src/Shopsys/ShopBundle/Resources/views/Front/Layout/header.html.twig:125
 msgid "Registration"
 msgstr ""
 
@@ -3748,7 +3765,7 @@ msgstr ""
 msgid "Save changes in all templates"
 msgstr ""
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:29
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Article/list.html.twig:32
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/list.html.twig:69
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TransportAndPayment/list.html.twig:17
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Grid/Grid.html.twig:38
@@ -3856,7 +3873,7 @@ msgstr ""
 msgid "Selected advertisement doesn't exist."
 msgstr ""
 
-#: ArticleController.php:203
+#: ArticleController.php:205
 msgid "Selected article doesn't exist."
 msgstr ""
 
@@ -3885,7 +3902,7 @@ msgstr ""
 msgid "Selected customer doesn't exist."
 msgstr ""
 
-#: PromoCodeController.php:62
+#: PromoCodeController.php:77
 msgid "Selected discount coupon doesn't exist."
 msgstr ""
 
@@ -5097,6 +5114,10 @@ msgstr ""
 msgid "You have made changes, don't forget to save them!"
 msgstr ""
 
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Product/recentlyBought.html.twig:12
+msgid "You have not bought any products in recent history."
+msgstr ""
+
 #: CustomerController.php:60
 #: CustomerController.php:94
 #: CustomerController.php:131
@@ -5133,6 +5154,10 @@ msgstr ""
 
 #: src/Shopsys/ShopBundle/Resources/views/Front/Content/Order/PromoCode/index.html.twig:11
 msgid "Your discount"
+msgstr ""
+
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Product/recentlyBought.html.twig:7
+msgid "Your recently bought products"
 msgstr ""
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Product/detail.html.twig:374
@@ -5350,6 +5375,10 @@ msgstr ""
 msgid "not entered"
 msgstr ""
 
+#: ArticleFormType.php:77
+msgid "on homepage"
+msgstr ""
+
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Superadmin/cssDocumentation.html.twig:59
 msgid "one dash \"-\" represents separator in multi-word title"
 msgstr ""
@@ -5418,7 +5447,7 @@ msgstr ""
 msgid "uses"
 msgstr ""
 
-#: ArticleFormType.php:77
+#: ArticleFormType.php:78
 msgid "without positoning"
 msgstr ""
 

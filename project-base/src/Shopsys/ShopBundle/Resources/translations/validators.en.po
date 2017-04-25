@@ -42,10 +42,6 @@ msgstr ""
 msgid "Country name cannot be longer than {{ limit }} characters"
 msgstr ""
 
-#: PromoCodeFormType.php:49
-msgid "Discount coupon with this code already exists"
-msgstr ""
-
 #: MailTemplateFormType.php:81
 msgid "E-mail subject cannot be longer than {{ limit }} characters"
 msgstr ""
@@ -200,7 +196,7 @@ msgstr ""
 msgid "Please choose advertisement type"
 msgstr ""
 
-#: ArticleFormType.php:81
+#: ArticleFormType.php:82
 msgid "Please choose article placement"
 msgstr ""
 
@@ -336,7 +332,7 @@ msgstr ""
 msgid "Please enter default pricing group"
 msgstr ""
 
-#: PromoCodeFormType.php:57
+#: PromoCodeFormType.php:54
 msgid "Please enter discount percentage"
 msgstr ""
 
@@ -553,7 +549,7 @@ msgstr ""
 msgid "Please enter valid quantity"
 msgstr ""
 
-#: src/Shopsys/ShopBundle/Form/Admin/PromoCode/PromoCodeFormType.php:64
+#: src/Shopsys/ShopBundle/Form/Admin/PromoCode/PromoCodeFormType.php:61
 msgid "Please enter whole number."
 msgstr ""
 
