@@ -47,4 +47,13 @@ class ArticleController extends FrontBaseController
             'articles' => $articles,
         ]);
     }
+
+    public function homepageAction()
+    {
+        $articles = $this->articleFacade->getVisibleArticlesForPlacementOnCurrentDomain(Article::PLACEMENT_HOMEPAGE);
+
+        return $this->render('@ShopsysShop/Front/Content/Article/homepageList.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
 }

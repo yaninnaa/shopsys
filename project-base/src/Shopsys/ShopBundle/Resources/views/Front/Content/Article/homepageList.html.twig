@@ -1,0 +1,17 @@
+{% if articles is not empty %}
+    <h2>{{ 'Articles'|trans }}</h2>
+    <ul>
+        {% for article in articles %}
+            <li>
+                <a href="{{ url('front_article_detail', { id: article.id }) }}">
+                    <h3>
+                        {{ article.name }}
+                    </h3>
+                    <p>
+                        {{ article.text|raw }}
+                    </p>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
