@@ -307,9 +307,9 @@ class ProductOnCurrentDomainFacade
     }
 
     /**
-     * @return \Shopsys\ShopBundle\Model\Product\Product[]
+     * @return \Shopsys\ShopBundle\Model\Product\Detail\ProductDetail[]
      */
-    public function getRecentlyBoughtProducts()
+    public function getRecentlyBoughtProductsDetails()
     {
         $user = $this->currentCustomer->findCurrentUser();
 
@@ -317,6 +317,8 @@ class ProductOnCurrentDomainFacade
             return [];
         }
 
-        return $this->productRepository->getRecentlyBoughtProducts($user);
+        $products = $this->productRepository->getRecentlyBoughtProducts($user);
+
+        return $this->productDetailFactory->getDetailsForProducts($products);
     }
 }
