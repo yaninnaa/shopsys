@@ -2,6 +2,7 @@
 
 namespace Shopsys\ShopBundle\Model\Product;
 
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
@@ -790,14 +791,16 @@ class ProductRepository
 
     /**
      * @param \Shopsys\ShopBundle\Model\Customer\User $user
+     * @param \DateTime $orderCreatedFrom
      * @return \Shopsys\ShopBundle\Model\Product\Product[]
      */
-    public function getRecentlyBoughtProducts(User $user)
+    public function getRecentlyBoughtProducts(User $user, DateTime $orderCreatedFrom)
     {
         return $this->getAllListableQueryBuilder($user->getDomainId(), $user->getPricingGroup())
             ->join(OrderProduct::class, 'op', Join::WITH, 'op.product = p')
             ->join('op.order', 'o')
             ->andWhere('o.customer = :user')->setParameter('user', $user)
+            ->andWhere('o.createdAt > :orderCreatedFrom')->setParameter('orderCreatedFrom', $orderCreatedFrom)
             ->orderBy('o.createdAt', 'DESC')
             ->addOrderBy('p.id', 'ASC')
             ->getQuery()

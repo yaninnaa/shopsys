@@ -2,6 +2,7 @@
 
 namespace Shopsys\ShopBundle\Model\Product;
 
+use DateTime;
 use Shopsys\ShopBundle\Component\Domain\Domain;
 use Shopsys\ShopBundle\Component\Paginator\PaginationResult;
 use Shopsys\ShopBundle\Model\Category\CategoryRepository;
@@ -317,7 +318,9 @@ class ProductOnCurrentDomainFacade
             return [];
         }
 
-        $products = $this->productRepository->getRecentlyBoughtProducts($user);
+        $orderCreatedFrom = new DateTime('-3 months');
+
+        $products = $this->productRepository->getRecentlyBoughtProducts($user, $orderCreatedFrom);
 
         return $this->productDetailFactory->getDetailsForProducts($products);
     }
