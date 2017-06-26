@@ -1,8 +1,8 @@
 {% if articles is not empty %}
     <h2>{{ 'Articles'|trans }}</h2>
-    <ul>
+    <ul class="list-articles">
         {% for article in articles %}
-            <li>
+            <li class="list-articles__item">
                 <a href="{{ url('front_article_detail', { id: article.id }) }}">
                     <h3>
                         {{ article.name }}
