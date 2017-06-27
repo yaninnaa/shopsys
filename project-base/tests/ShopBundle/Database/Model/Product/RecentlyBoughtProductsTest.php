@@ -81,6 +81,20 @@ class RecentlyBoughtProductsTest extends DatabaseTestCase
         $this->assertEmpty($recentlyBought);
     }
 
+    public function testRecentlyBoughtProductsAreUnique()
+    {
+        $product = $this->getProduct(1);
+
+        $user = $this->getUserWithoutOrders();
+        $this->createOrder($user, [new QuantifiedProduct($product, 1)]);
+        $this->createOrder($user, [new QuantifiedProduct($product, 1)]);
+        $productOnCurrentDomainFacade = $this->createProductOnCurrentDomainFacadeForUser($user);
+
+        $recentlyBought = $productOnCurrentDomainFacade->getRecentlyBoughtProductsDetails();
+
+        $this->assertEquals([$product], $this->getProductsFromProductDetails($recentlyBought));
+    }
+
     /**
      * @return \Shopsys\ShopBundle\Model\Customer\User
      */
