@@ -1,12 +1,16 @@
+@list-articles-gap: 20px;
 @list-articles-line-height: 20px;
 
 .list-articles {
 	.clearfix();
 	.reset-ul();
+	margin-left: -@list-articles-gap;
 
 	&__item {
 		float: left;
 		width: 100%/3;
+		padding-left: @list-articles-gap;
+		margin-bottom: @list-articles-gap;
 
 		&__title {
 			height: @list-articles-line-height;
