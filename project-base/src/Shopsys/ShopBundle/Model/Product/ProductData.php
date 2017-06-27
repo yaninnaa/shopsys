@@ -119,6 +119,11 @@ class ProductData
      */
     public $orderingPriority;
 
+    /**
+     * @var int
+     */
+    public $apiId;
+
     public function __construct()
     {
         $this->name = [];

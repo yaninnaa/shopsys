@@ -286,6 +286,13 @@ class Product extends AbstractTranslatableEntity
     private $orderingPriority;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $apiId;
+
+    /**
      * @param \Shopsys\ShopBundle\Model\Product\ProductData $productData
      * @param \Shopsys\ShopBundle\Model\Product\Product[]|null $variants
      */
@@ -324,6 +331,7 @@ class Product extends AbstractTranslatableEntity
         $this->calculatedSellingDenied = true;
         $this->brand = $productData->brand;
         $this->orderingPriority = $productData->orderingPriority;
+        $this->apiId = $productData->apiId;
 
         $this->variants = new ArrayCollection();
         if ($variants === null) {
@@ -885,6 +893,22 @@ class Product extends AbstractTranslatableEntity
         foreach ($productData->variantAlias as $locale => $variantAlias) {
             $this->translation($locale)->setVariantAlias($variantAlias);
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getApiId()
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * @param int $apiId
+     */
+    public function setApiId($apiId)
+    {
+        $this->apiId = $apiId;
     }
 
     /**

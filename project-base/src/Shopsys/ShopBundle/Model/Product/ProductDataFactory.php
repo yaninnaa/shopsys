@@ -87,6 +87,7 @@ class ProductDataFactory
         $productData->priceCalculationType = $product->getPriceCalculationType();
         $productData->brand = $product->getBrand();
         $productData->orderingPriority = $product->getOrderingPriority();
+        $productData->apiId = $product->getApiId();
 
         return $productData;
     }
