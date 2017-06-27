@@ -17,6 +17,16 @@ use Tests\ShopBundle\Test\DatabaseTestCase;
 
 class RecentlyBoughtProductsTest extends DatabaseTestCase
 {
+    public function testThereAreNoRecentlyBoughtProductsWhenNoOrderExists()
+    {
+        $user = $this->getUserWithoutOrders();
+        $productOnCurrentDomainFacade = $this->createProductOnCurrentDomainFacadeForUser($user);
+
+        $recentlyBought = $productOnCurrentDomainFacade->getRecentlyBoughtProductsDetails();
+
+        $this->assertEmpty($recentlyBought);
+    }
+
     /**
      * @return \Shopsys\ShopBundle\Model\Customer\User
      */
