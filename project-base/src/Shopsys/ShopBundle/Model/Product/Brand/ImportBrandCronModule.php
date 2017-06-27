@@ -10,6 +10,16 @@ class ImportBrandCronModule implements SimpleCronModuleInterface
     const BRAND_DATA_URL = 'https://private-2f283-patro.apiary-mock.com/brands';
 
     /**
+     * @var \Shopsys\ShopBundle\Model\Product\Brand\BrandFacade
+     */
+    private $brandFacade;
+
+    public function __construct(BrandFacade $brandFacade)
+    {
+        $this->brandFacade = $brandFacade;
+    }
+
+    /**
      * @inheritdoc
      */
     public function setLogger(Logger $logger)
@@ -20,6 +30,25 @@ class ImportBrandCronModule implements SimpleCronModuleInterface
     {
         $brandJsonData = file_get_contents(self::BRAND_DATA_URL);
         $brandData = json_decode($brandJsonData, true);
-        d($brandData);
+
+        $this->importBrandsData($brandData);
+    }
+
+    /**
+     * @param array $importedBrandsData
+     */
+    public function importBrandsData(array $importedBrandsData)
+    {
+        foreach ($importedBrandsData as $importedBrandData) {
+            $apiId = (int)$importedBrandData['id'];
+
+            $brand = $this->brandFacade->findByApiId($apiId);
+            if ($brand === null) {
+                $brandData = new BrandData();
+                $brandData->apiId = $apiId;
+                $brandData->name = $importedBrandData['name'];
+                $this->brandFacade->create($brandData);
+            }
+        }
     }
 }

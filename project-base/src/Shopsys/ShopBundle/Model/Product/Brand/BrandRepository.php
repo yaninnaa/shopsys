@@ -51,4 +51,15 @@ class BrandRepository
     {
         return $this->getBrandRepository()->findBy([], ['name' => 'asc']);
     }
+
+    /**
+     * @param int $brandApiId
+     * @return \Shopsys\ShopBundle\Model\Product\Brand\Brand|null
+     */
+    public function findByApiId($brandApiId)
+    {
+        $brand = $this->getBrandRepository()->findOneBy(['apiId' => $brandApiId]);
+
+        return $brand;
+    }
 }

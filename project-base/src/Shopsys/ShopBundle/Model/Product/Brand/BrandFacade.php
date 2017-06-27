@@ -54,6 +54,15 @@ class BrandFacade
     }
 
     /**
+     * @param int $brandId
+     * @return \Shopsys\ShopBundle\Model\Product\Brand\Brand
+     */
+    public function findByApiId($brandId)
+    {
+        return $this->brandRepository->findByApiId($brandId);
+    }
+
+    /**
      * @param \Shopsys\ShopBundle\Model\Product\Brand\BrandData $brandData
      * @return \Shopsys\ShopBundle\Model\Product\Brand\Brand
      */
