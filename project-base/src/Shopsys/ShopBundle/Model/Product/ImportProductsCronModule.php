@@ -63,20 +63,35 @@ class ImportProductsCronModule implements SimpleCronModuleInterface
             $apiId = $apiProductData['id'];
 
             $product = $this->productFacade->findByApiId($apiId);
+
             if ($product === null) {
                 $productEditData = $this->productEditDataFactory->createDefault();
 
-                $productEditData->productData->apiId = $apiProductData['id'];
-                $productEditData->productData->name[self::LOCALE] = $apiProductData['id'];
-                $productEditData->productData->price = $apiProductData['price_without_vat'];
-                $productEditData->productData->vat = $this->vatFacade->getVatByPercent($apiProductData['vat_percent']);
-                $productEditData->productData->ean = $apiProductData['ean'];
-                $productEditData->descriptions[self::DOMAIN_ID] = $apiProductData['description'];
-                $productEditData->productData->usingStock = true;
-                $productEditData->productData->stockQuantity = $apiProductData['stock_quantity'];
+                $this->fillProductEditData($productEditData, $apiProductData);
 
                 $this->productFacade->create($productEditData);
+            } else {
+                $productEditData = $this->productEditDataFactory->createFromProduct($product);
+
+                $this->fillProductEditData($productEditData, $apiProductData);
+
+                $this->productFacade->edit($product->getId(), $productEditData);
             }
         }
+    }
+
+    /**
+     * @param \Shopsys\ShopBundle\Model\Product\ProductEditData $productEditData
+     * @param array $apiProductData
+     */
+    private function fillProductEditData(ProductEditData $productEditData, array $apiProductData)
+    {
+        $productEditData->productData->name[self::LOCALE] = $apiProductData['id'];
+        $productEditData->productData->price = $apiProductData['price_without_vat'];
+        $productEditData->productData->vat = $this->vatFacade->getVatByPercent($apiProductData['vat_percent']);
+        $productEditData->productData->ean = $apiProductData['ean'];
+        $productEditData->descriptions[self::DOMAIN_ID] = $apiProductData['description'];
+        $productEditData->productData->usingStock = true;
+        $productEditData->productData->stockQuantity = $apiProductData['stock_quantity'];
     }
 }
