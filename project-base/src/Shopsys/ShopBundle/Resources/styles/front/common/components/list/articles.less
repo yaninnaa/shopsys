@@ -1,3 +1,5 @@
+@list-articles-line-height: 20px;
+
 .list-articles {
 	.clearfix();
 	.reset-ul();
@@ -5,5 +7,17 @@
 	&__item {
 		float: left;
 		width: 100%/3;
+
+		&__title {
+			height: @list-articles-line-height;
+			line-height: @list-articles-line-height;
+			overflow: hidden;
+		}
+
+		&__text {
+			height: 3*@list-articles-line-height;
+			line-height: @list-articles-line-height;
+			overflow: hidden;
+		}
 	}
 }

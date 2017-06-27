@@ -4,10 +4,10 @@
         {% for article in articles %}
             <li class="list-articles__item">
                 <a href="{{ url('front_article_detail', { id: article.id }) }}">
-                    <h3>
+                    <h3 class="list-articles__item__title">
                         {{ article.name }}
                     </h3>
-                    <p>
+                    <p class="list-articles__item__text">
                         {{ article.text|raw }}
                     </p>
                 </a>
