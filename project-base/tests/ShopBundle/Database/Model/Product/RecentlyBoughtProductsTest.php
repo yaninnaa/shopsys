@@ -13,6 +13,7 @@ use Shopsys\ShopBundle\Model\Customer\CurrentCustomer;
 use Shopsys\ShopBundle\Model\Customer\CustomerFacade;
 use Shopsys\ShopBundle\Model\Customer\User;
 use Shopsys\ShopBundle\Model\Order\FrontOrderData;
+use Shopsys\ShopBundle\Model\Order\Item\QuantifiedProduct;
 use Shopsys\ShopBundle\Model\Order\OrderFacade;
 use Shopsys\ShopBundle\Model\Order\Preview\OrderPreviewFactory;
 use Shopsys\ShopBundle\Model\Pricing\Currency\CurrencyFacade;
@@ -36,6 +37,20 @@ class RecentlyBoughtProductsTest extends DatabaseTestCase
         $recentlyBought = $productOnCurrentDomainFacade->getRecentlyBoughtProductsDetails();
 
         $this->assertEmpty($recentlyBought);
+    }
+
+    public function testProductsInOrderAreReturnedAsRecentlyBoughtProducts()
+    {
+        $firstProduct = $this->getProduct(1);
+        $secondProduct = $this->getProduct(2);
+
+        $user = $this->getUserWithoutOrders();
+        $this->createOrder($user, [new QuantifiedProduct($firstProduct, 1), new QuantifiedProduct($secondProduct, 1)]);
+        $productOnCurrentDomainFacade = $this->createProductOnCurrentDomainFacadeForUser($user);
+
+        $recentlyBought = $productOnCurrentDomainFacade->getRecentlyBoughtProductsDetails();
+
+        $this->assertEquals([$firstProduct, $secondProduct], $this->getProductsFromProductDetails($recentlyBought));
     }
 
     /**
