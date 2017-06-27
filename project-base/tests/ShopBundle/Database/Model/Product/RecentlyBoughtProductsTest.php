@@ -53,6 +53,21 @@ class RecentlyBoughtProductsTest extends DatabaseTestCase
         $this->assertEquals([$firstProduct, $secondProduct], $this->getProductsFromProductDetails($recentlyBought));
     }
 
+    public function testRecentlyBoughtProductsAreSortedByOrderDateTime()
+    {
+        $firstProduct = $this->getProduct(1);
+        $secondProduct = $this->getProduct(2);
+
+        $user = $this->getUserWithoutOrders();
+        $this->createOrder($user, [new QuantifiedProduct($firstProduct, 1)], new DateTime('- 1 day'));
+        $this->createOrder($user, [new QuantifiedProduct($secondProduct, 1)]);
+        $productOnCurrentDomainFacade = $this->createProductOnCurrentDomainFacadeForUser($user);
+
+        $recentlyBought = $productOnCurrentDomainFacade->getRecentlyBoughtProductsDetails();
+
+        $this->assertEquals([$secondProduct, $firstProduct], $this->getProductsFromProductDetails($recentlyBought));
+    }
+
     /**
      * @return \Shopsys\ShopBundle\Model\Customer\User
      */
