@@ -7,6 +7,8 @@ use Symfony\Bridge\Monolog\Logger;
 
 class ImportBrandCronModule implements SimpleCronModuleInterface
 {
+    const BRAND_DATA_URL = 'https://private-2f283-patro.apiary-mock.com/brands';
+
     /**
      * @inheritdoc
      */
@@ -16,6 +18,8 @@ class ImportBrandCronModule implements SimpleCronModuleInterface
 
     public function run()
     {
-        d('cron runs');
+        $brandJsonData = file_get_contents(self::BRAND_DATA_URL);
+        $brandData = json_decode($brandJsonData, true);
+        d($brandData);
     }
 }
