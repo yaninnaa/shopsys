@@ -799,6 +799,7 @@ class ProductRepository
             ->join('op.order', 'o')
             ->andWhere('o.customer = :user')->setParameter('user', $user)
             ->orderBy('o.createdAt', 'DESC')
+            ->addOrderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult();
     }
