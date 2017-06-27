@@ -68,6 +68,19 @@ class RecentlyBoughtProductsTest extends DatabaseTestCase
         $this->assertEquals([$secondProduct, $firstProduct], $this->getProductsFromProductDetails($recentlyBought));
     }
 
+    public function testOrdersCreatedMoreThanThreeMonthsAgoAreIgnored()
+    {
+        $product = $this->getProduct(1);
+
+        $user = $this->getUserWithoutOrders();
+        $this->createOrder($user, [new QuantifiedProduct($product, 1)], new DateTime('- 4 months'));
+        $productOnCurrentDomainFacade = $this->createProductOnCurrentDomainFacadeForUser($user);
+
+        $recentlyBought = $productOnCurrentDomainFacade->getRecentlyBoughtProductsDetails();
+
+        $this->assertEmpty($recentlyBought);
+    }
+
     /**
      * @return \Shopsys\ShopBundle\Model\Customer\User
      */
