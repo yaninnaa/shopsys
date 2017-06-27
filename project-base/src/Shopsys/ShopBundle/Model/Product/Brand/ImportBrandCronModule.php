@@ -43,11 +43,16 @@ class ImportBrandCronModule implements SimpleCronModuleInterface
             $apiId = (int)$importedBrandData['id'];
 
             $brand = $this->brandFacade->findByApiId($apiId);
+
+            $brandData = new BrandData();
             if ($brand === null) {
-                $brandData = new BrandData();
                 $brandData->apiId = $apiId;
                 $brandData->name = $importedBrandData['name'];
                 $this->brandFacade->create($brandData);
+            } else {
+                $brandData->setFromEntity($brand);
+                $brandData->name = $importedBrandData['name'];
+                $this->brandFacade->edit($brand->getId(), $brandData);
             }
         }
     }
