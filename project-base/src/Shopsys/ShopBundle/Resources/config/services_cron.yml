@@ -56,6 +56,11 @@ services:
       tags:
         - { name: shopsys.cron, hours: '*', minutes: '*' }
 
+  Shopsys\ShopBundle\Model\Product\ImportProductsCronModule:
+      class: Shopsys\ShopBundle\Model\Product\ImportProductsCronModule
+      tags:
+        - { name: shopsys.cron, hours: '3', minutes: '0' }
+
   # This module should run as last because it creates multiple kernels and fake requests.
   Shopsys\ShopBundle\Component\Error\ErrorPageCronModule:
     class: Shopsys\ShopBundle\Component\Error\ErrorPageCronModule
