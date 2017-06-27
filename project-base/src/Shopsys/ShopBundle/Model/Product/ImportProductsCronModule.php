@@ -5,6 +5,7 @@ namespace Shopsys\ShopBundle\Model\Product;
 use Shopsys\ShopBundle\Component\Cron\SimpleCronModuleInterface;
 use Shopsys\ShopBundle\Model\Localization\Localization;
 use Shopsys\ShopBundle\Model\Pricing\Vat\VatFacade;
+use Shopsys\ShopBundle\Model\Product\Brand\BrandFacade;
 use Shopsys\ShopBundle\Model\Product\Unit\UnitFacade;
 use Symfony\Bridge\Monolog\Logger;
 
@@ -30,14 +31,21 @@ class ImportProductsCronModule implements SimpleCronModuleInterface
      */
     private $vatFacade;
 
+    /**
+     * @var \Shopsys\ShopBundle\Model\Product\Brand\BrandFacade
+     */
+    private $brandFacade;
+
     public function __construct(
         ProductFacade $productFacade,
         ProductEditDataFactory $productEditDataFactory,
-        VatFacade $vatFacade
+        VatFacade $vatFacade,
+        BrandFacade $brandFacade
     ) {
         $this->productFacade = $productFacade;
         $this->productEditDataFactory = $productEditDataFactory;
         $this->vatFacade = $vatFacade;
+        $this->brandFacade = $brandFacade;
     }
 
     /**
@@ -93,5 +101,6 @@ class ImportProductsCronModule implements SimpleCronModuleInterface
         $productEditData->descriptions[self::DOMAIN_ID] = $apiProductData['description'];
         $productEditData->productData->usingStock = true;
         $productEditData->productData->stockQuantity = $apiProductData['stock_quantity'];
+        $productEditData->productData->brand = $this->brandFacade->findByApiId($apiProductData['brand_id']);
     }
 }
