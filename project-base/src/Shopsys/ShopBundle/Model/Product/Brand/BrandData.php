@@ -27,6 +27,11 @@ class BrandData
      */
     public $urls;
 
+    /**
+     * @var int
+     */
+    public $apiId;
+
     public function __construct()
     {
         $this->name = '';
@@ -41,6 +46,7 @@ class BrandData
     public function setFromEntity(Brand $brand)
     {
         $this->name = $brand->getName();
+        $this->apiId = $brand->getApiId();
 
         $translations = $brand->getTranslations();
         /* @var $translations \Shopsys\ShopBundle\Model\Product\Brand\BrandTranslation[]  */

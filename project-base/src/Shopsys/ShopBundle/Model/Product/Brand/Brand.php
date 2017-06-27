@@ -38,11 +38,19 @@ class Brand extends AbstractTranslatableEntity
     protected $translations;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $apiId;
+
+    /**
      * @param \Shopsys\ShopBundle\Model\Product\Brand\BrandData $brandData
      */
     public function __construct(BrandData $brandData)
     {
         $this->name = $brandData->name;
+        $this->apiId = $brandData->apiId;
         $this->translations = new ArrayCollection();
         $this->setTranslations($brandData);
     }
@@ -82,6 +90,25 @@ class Brand extends AbstractTranslatableEntity
             /* @var $brandTranslation \Shopsys\ShopBundle\Model\Product\Brand\BrandTranslation */
             $brandTranslation->setDescription($description);
         }
+    }
+
+    /**
+     * @param int $apiId
+     * @return Brand
+     */
+    public function setApiId($apiId)
+    {
+        $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getApiId()
+    {
+        return $this->apiId;
     }
 
     /**
