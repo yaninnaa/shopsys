@@ -8,9 +8,13 @@
 
 	&__item {
 		float: left;
-		width: 100%/3;
+		width: 100%/2;
 		padding-left: @list-articles-gap;
 		margin-bottom: @list-articles-gap;
+
+		@media @query-md {
+			width: 100%/3;
+		}
 
 		&__block {
 			color: @color-base;
