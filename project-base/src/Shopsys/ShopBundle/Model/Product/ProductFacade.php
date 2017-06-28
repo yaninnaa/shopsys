@@ -427,4 +427,13 @@ class ProductFacade
     {
         return $this->productRepository->getOneByCatnumExcludeMainVariants($productCatnum);
     }
+
+    /**
+     * @param int $apiId
+     * @return \Shopsys\ShopBundle\Model\Product\Product|null
+     */
+    public function findByApiId($apiId)
+    {
+        return $this->productRepository->findByApiId($apiId);
+    }
 }

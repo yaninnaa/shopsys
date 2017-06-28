@@ -196,4 +196,13 @@ class VatFacade
     {
         return $this->vatRepository->getAllExceptId($vatId);
     }
+
+    /**
+     * @param int $percent
+     * @return \Shopsys\ShopBundle\Model\Pricing\Vat\Vat
+     */
+    public function getVatByPercent($percent)
+    {
+        return $this->vatRepository->getVatByPercent($percent);
+    }
 }

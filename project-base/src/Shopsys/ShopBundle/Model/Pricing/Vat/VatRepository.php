@@ -211,4 +211,19 @@ class VatRepository
             ->where('t.vat = :oldVat')->setParameter('oldVat', $oldVat)
             ->getQuery()->execute();
     }
+
+    /**
+     * @param int $percent
+     * @return \Shopsys\ShopBundle\Model\Pricing\Vat\Vat
+     */
+    public function getVatByPercent($percent)
+    {
+        $vat = $this->getVatRepository()->findOneBy(['percent' => $percent]);
+
+        if ($vat === null) {
+            throw new \Shopsys\ShopBundle\Model\Pricing\Vat\Exception\VatNotFoundException('Vat with ' . $percent . '% not found.');
+        }
+
+        return $vat;
+    }
 }
