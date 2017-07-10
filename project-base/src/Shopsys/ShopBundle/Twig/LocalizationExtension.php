@@ -43,18 +43,18 @@ class LocalizationExtension extends \Twig_Extension
      * @param string $locale
      * @return string
      */
-    public function getLocaleFlagHtml($locale, $showTitle = true)
+    public function getLocaleFlagHtml($locale, $showTitle = true, $cssClass = '')
     {
         $src = $this->assetPackages->getUrl('assets/admin/images/flags/' . $locale . '.png');
 
         if ($showTitle) {
             $title = $this->getTitle($locale);
-            $html = '<img src="' . htmlspecialchars($src, ENT_QUOTES)
+            $html = '<span class="in-image ' . $cssClass . '"><span class="in-image__in"><img src="' . htmlspecialchars($src, ENT_QUOTES)
                 . '" alt="' . htmlspecialchars($locale, ENT_QUOTES)
-                . '" title="' . htmlspecialchars($title, ENT_QUOTES) . '" width="16" height="11" />';
+                . '" title="' . htmlspecialchars($title, ENT_QUOTES) . '" ></span></span>';
         } else {
-            $html = '<img src="' . htmlspecialchars($src, ENT_QUOTES)
-                . '" alt="' . htmlspecialchars($locale, ENT_QUOTES) . '" width="16" height="11" />';
+            $html = '<span class="in-image ' . $cssClass . '"><span class="in-image__in"><img src="' . htmlspecialchars($src, ENT_QUOTES)
+                . '" alt="' . htmlspecialchars($locale, ENT_QUOTES) . '" ></span></span>';
         }
 
         return $html;

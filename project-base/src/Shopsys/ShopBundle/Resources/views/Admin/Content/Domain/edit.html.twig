@@ -5,18 +5,23 @@
 
     {{ form_start(form) }}
         {{ form_errors(form) }}
-        <div class="margin-bottom-10">
-            <div class="form-line">
-                <label class="form-line__label">
+        <div>
+            <dl class="form-line">
+                <dt class="form-line__label">
                     {{ 'Existing icon'|trans }}:
-                </label>
-                {{ domainIcon(domain.id) }}
-            </div>
+                </dt>
+                <dd>
+                    {{ domainIcon(domain.id) }}
+                </dd>
+            </dl>
 
-            {{ form_row(form.icon, { label: 'Upload icon'|trans}) }}
-        </div>
-        <div class="text-right">
-            {{ form_save(domain|default(null), form) }}
+            {{ form_row(form.icon, { label: false}) }}
+
+            <dl class="form-line">
+                <dd>
+                    {{ form_save(domain|default(null), form) }}
+                </dd>
+            </dl>
         </div>
     {{ form_end(form) }}
 </div>

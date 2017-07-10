@@ -10,10 +10,6 @@
                 </div>
             {% endif %}
 
-            <div class="list-domain__item__info">
-                <span class="list-domain__item__info__visible in-icon svg svg-{{ isVisible ? 'visible in-icon--visible' : 'invisible in-icon--invisible' }}" title="{{ isVisible ? 'Yes'|trans : 'No'|trans }}"></span>
-            </div>
-
             {% if isVisible %}
                 <a href="{{ url }}" class="list-domain__item__name" target="_blank">
                     {{ getDomainName(productDomain.domainId) }}
@@ -24,6 +20,10 @@
                     {{ getDomainName(productDomain.domainId) }}
                 </span>
             {% endif %}
+
+            <div class="list-domain__item__info">
+                <span class="list-domain__item__info__visible in-icon svg svg-{{ isVisible ? 'visible in-icon--visible' : 'invisible in-icon--invisible' }}" title="{{ isVisible ? 'Yes'|trans : 'No'|trans }}"></span>
+            </div>
         </li>
     {% endfor %}
 </ul>

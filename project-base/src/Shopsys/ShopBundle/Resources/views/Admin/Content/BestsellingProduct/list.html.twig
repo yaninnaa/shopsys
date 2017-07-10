@@ -29,10 +29,18 @@
         </ul>
     {% endmacro %}
 
-    <div class="form-line">
-        <div class="form-tree form-tree--open">
-            {{ _self.categoryTreeItem(categoryDetails, selectedDomainId, bestsellingProductsInCategories) }}
+    <div class="form-group">
+        <div class="form-group__title">
+            {{ 'Categories'|trans }}
         </div>
     </div>
+
+    <dl class="form-line">
+        <dd>
+            <div class="form-tree form-tree--open">
+                {{ _self.categoryTreeItem(categoryDetails, selectedDomainId, bestsellingProductsInCategories) }}
+            </div>
+        </dd>
+    </dl>
 
 {% endblock %}

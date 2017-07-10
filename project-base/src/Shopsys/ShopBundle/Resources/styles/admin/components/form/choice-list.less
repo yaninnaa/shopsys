@@ -3,12 +3,15 @@
 @form-choice-list-item-gap-inside: 5px;
 
 .form-choice-list {
-    display: inline-block;
-    vertical-align: top;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     padding-top: @form-choice-list-space-around;
     padding-bottom: @form-choice-list-space-around;
+    position: relative;
 
     &__item {
+        flex: 0 0 100%;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -26,20 +29,11 @@
         }
     }
 
-    &__input {
+    &__icon {
         margin-right: @form-choice-list-item-gap-inside;
     }
 
-    &__icon {
-        display: inline-block;
+    .input-choice {
         margin-right: @form-choice-list-item-gap-inside;
-        width: 40px;
-        height: 12px;
-        float: none;
-        position: relative;
-
-        img {
-            .center-image();
-        }
     }
 }

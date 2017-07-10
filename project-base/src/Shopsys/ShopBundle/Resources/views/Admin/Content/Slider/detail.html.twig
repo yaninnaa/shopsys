@@ -31,7 +31,7 @@
                 {{ 'Image'|trans }}
             </div>
             {% block image %}{% endblock %}
-            {{ form_row(form.image, { label: 'Upload image'|trans}) }}
+            {{ form_row(form.image, { label: false }) }}
         </div>
 
         {% embed '@ShopsysShop/Admin/Inline/FixedBar/fixedBar.html.twig' %}

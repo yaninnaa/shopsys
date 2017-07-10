@@ -13,7 +13,6 @@
         {{ form_errors(form) }}
 
         <div class="form-group wrap-border">
-
             <div class="form-group__title">
                 {{ 'Basic information'|trans }}
             </div>
@@ -25,7 +24,6 @@
         </div>
 
         <div class="form-group wrap-border">
-
             <div class="form-group__title">
                 {{ 'Prices'|trans }}
             </div>
@@ -34,14 +32,18 @@
         </div>
 
         <div class="form-group wrap-border">
-
             <div class="form-group__title">
                 {{ 'Description'|trans }}
             </div>
-            {{ form_row(form.transportData.description, { label: 'Description'|trans }) }}
-            {{ form_row(form.transportData.instructions, { label: 'Instructions'|trans }) }}
+            {{ form_row(form.transportData.description, { label: false }) }}
         </div>
 
+        <div class="form-group wrap-border">
+            <div class="form-group__title">
+                {{ 'Instructions'|trans }}
+            </div>
+            {{ form_row(form.transportData.instructions, { label: false }) }}
+        </div>
 
         <div class="form-group">
             <div class="form-group__title">
@@ -49,7 +51,7 @@
             </div>
 
             {% block image %}{% endblock %}
-            {{ form_row(form.transportData.image, { label: 'Upload image'|trans, infoText: 'You can upload following formats: PNG, JPG, GIF'|trans }) }}
+            {{ form_row(form.transportData.image, { label: false, infoText: 'You can upload following formats: PNG, JPG, GIF'|trans }) }}
         </div>
 
         {% embed '@ShopsysShop/Admin/Inline/FixedBar/fixedBar.html.twig' %}

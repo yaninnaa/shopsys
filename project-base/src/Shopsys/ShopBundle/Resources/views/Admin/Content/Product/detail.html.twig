@@ -41,23 +41,20 @@
         {{ form_errors(form) }}
 
         <div class="wrap-border wrap-border--small">
-            <div class="form-full">
-                <div class="form-full__title">
-                    <div class="form-full__title__in">{{ 'Name'|trans }}</div>
-                    <div class="form-full__title__buttons"></div>
-                </div>
+            <dl class="form-full">
+                <dt class="form-full__title">
+                    {{ 'Name'|trans }}
+                </dt>
                 {% for locale, formName in form.productData.name %}
-                    <div class="form-full__field">
-                        <div class="input__wrap">
-                            {{ form_widget(formName, { attr: { class: 'input--flag form-full__field__input'} }) }}
-                            <span class="input__flag">
-                                {{ localeFlag(locale) }}
-                            </span>
-                        </div>
+                    <dd class="form-full__field">
+                        <span class="form-full__field__flag">
+                            {{ localeFlag(locale) }}
+                        </span>
+                        {{ form_widget(formName) }}
                         {{ form_errors(formName) }}
-                    </div>
+                    </dd>
                 {% endfor %}
-            </div>
+            </dl>
         </div>
 
         {% block product_variants %}{% endblock %}
@@ -112,41 +109,21 @@
             {% block product_main_categories %}{% endblock %}
 
             {% block product_categories %}
-                <div class="form-line">
-                    {{ form_label(form.productData.categoriesByDomainId, 'Assign to category'|trans) }}
-                    <div class="form-line__line">
-                        {% for domainId, categoriesForm in form.productData.categoriesByDomainId %}
-                            <div class="form-line__box">
-                                {% if isMultidomain() %}
-                                    <div class="form-line__group form-line__box__title">
-                                        <span class="form-line__group__image">
-                                            {{ domainIcon(domainId, 'large') }}
-                                        </span>
-                                        <strong class="form-line__group__name">{{ getDomainName(domainId) }}</strong>
-                                    </div>
-                                {% endif %}
-                                <div{% if isMultidomain() %} class="form-line__box__content"{% endif %}>
-                                    {{ form_widget(categoriesForm) }}
-                                    {{ form_errors(categoriesForm) }}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                {{ form_row(form.productData.categoriesByDomainId, { label: 'Assign to category'|trans }) }}
             {% endblock %}
 
             {{ form_row(form.productData.unit, { label: 'Unit'|trans }) }}
 
             {% block product_stock_and_availability %}
                 {{ form_row(form.productData.usingStock, { label: 'Use stocks'|trans }) }}
-                <div class="js-product-using-stock form-line__js">
+                <div class="js-product-using-stock">
                     {{ form_row(form.productData.stockQuantity, { label: 'Available in stock'|trans }) }}
                     {{ form_row(form.productData.outOfStockAction, { label: 'Action after sellout'|trans }) }}
                     <div class="js-product-using-stock-and-alternate-availability">
                         {{ form_row(form.productData.outOfStockAvailability, { label: 'Availability after sellout'|trans }) }}
                     </div>
                 </div>
-                <div class="js-product-not-using-stock form-line__js">
+                <div class="js-product-not-using-stock">
                     {{ form_row(form.productData.availability, { label: 'Availability'|trans }) }}
                 </div>
             {% endblock %}
@@ -171,55 +148,22 @@
         </div>
 
         <div class="form-group wrap-border">
+            <div class="form-group__title">
+                {{ 'Description'|trans }}
+            </div>
+
             {% block product_description %}
-                <div class="form-group__title">
-                    {{ 'Description'|trans }}
-                </div>
-
-                {% for domainId, descriptionForm in form.descriptions %}
-                    {% if isMultidomain() %}
-                        <div class="form-line form-line--no-padd">
-                            <div class="form-line__group">
-                                <span class="form-line__group__image">
-                                    {{ domainIcon(domainId, 'large') }}
-                                </span>
-                                <strong class="form-line__group__name">{{ getDomainName(domainId) }}</strong>
-                            </div>
-                        </div>
-                    {% endif %}
-                    <div class="form-line">
-                        <div class="form-line__line form-line__line--no-space">
-                            {{ form_widget(descriptionForm) }}
-                        </div>
-                    </div>
-
-                {% endfor %}
+                {{ form_row(form.descriptions, { label: false }) }}
             {% endblock %}
         </div>
 
         <div class="form-group wrap-border">
-            {% block product_short_description %}
-                <div class="form-group__title">
-                    {{ 'Short description'|trans }}
-                </div>
+            <div class="form-group__title">
+                {{ 'Short description'|trans }}
+            </div>
 
-                {% for domainId, shortDescriptionForm in form.shortDescriptions %}
-                    {% if isMultidomain() %}
-                        <div class="form-line form-line--no-padd">
-                            <div class="form-line__group">
-                                <span class="form-line__group__image">
-                                    {{ domainIcon(domainId, 'large') }}
-                                </span>
-                            <strong class="form-line__group__name">{{ getDomainName(domainId) }}</strong>
-                            </div>
-                        </div>
-                    {% endif %}
-                    <div class="form-line">
-                        <div class="form-line__line form-line__line--no-space">
-                            {{ form_widget(shortDescriptionForm) }}
-                        </div>
-                    </div>
-                {% endfor %}
+            {% block product_short_description %}
+                {{ form_row(form.shortDescriptions, { label: false } ) }}
             {% endblock %}
         </div>
 
@@ -229,61 +173,61 @@
 
                 {{ form_errors(form.parameters) }}
             </div>
-            <table class="table-form" id="product_edit_form_parameters">
-                <thead>
-                    <tr class="table-form__row">
-                        <th class="table-form__cell table-form__cell--del-before table-form__cell--label">{{ 'Parameter'|trans }}</th>
-                        <th class="table-form__cell table-form__cell--del"></th>
-                        <th class="table-form__cell table-form__cell--del-after">{{ 'Value'|trans }}</th>
-                        <th class="table-form__cell"></th>
-                    </tr>
-                </thead>
-                <tbody class="js-parameters" data-prototype="{{ _self.parameterRow(form.parameters.vars.prototype)|escape }}" data-index="{{ form.parameters|length }}">
-                    {% macro parameterRow(parameter, index) %}
-                        <tr class="js-parameters-item js-form-group table-form__row" data-index="{{ index }}">
-                            <td class="table-form__cell table-form__cell--del-before">
-                                {{ form_widget(parameter.parameter, { isSimple: true} ) }}
-                            </td>
-                            <td class="table-form__cell table-form__cell--del">
-                                <span class="svg svg-arrow-right"></span>
-                            </td>
-                            <td class="table-form__cell  table-form__cell--del-after">
-                                {% for locale, valueTextLocaleForm in parameter.valueTextsByLocale %}
-                                    <div class="input__wrap">
-                                        {{ form_widget(valueTextLocaleForm, { attr: { class: 'input--flag'} })  }}
-                                        <span class="input__flag">
-                                            {{ localeFlag(locale) }}
-                                        </span>
-                                        {{ form_errors(valueTextLocaleForm, { errors_attr: { class: 'table-form__cell__error' } } ) }}
-                                    </div>
-                                {% endfor %}
-                            </td>
-                            <td class="table-form__cell text-right">
-                                <a href="#" class="js-parameters-item-remove table-form__action"><i class="svg svg-circle-cross"></i></a>
-                            </td>
-                        </tr>
-                    {% endmacro %}
 
-                    {% for key, parameter in form.parameters %}
-                        {{ _self.parameterRow(parameter, key) }}
-                    {% else %}
-                        {% do form.parameters.setRendered %}
-                    {% endfor %}
+            <dl class="form-line form-line--visible">
+                <dt>
+                    {{ 'Parameter'|trans }}
+                </dt>
+                <dd>
+                    <strong>
+                        {{ 'Value'|trans }}
+                    </strong>
+                </dd>
+            </dl>
+            <div class="js-parameters" data-prototype="{{ _self.parameterRow(form.parameters.vars.prototype)|escape }}" data-index="{{ form.parameters|length }}">
+                {% macro parameterRow(parameter, index) %}
+                    <div class="js-parameters-item js-form-group" data-index="{{ index }}">
+                        {% for locale, valueTextLocaleForm in parameter.valueTextsByLocale %}
+                            <dl class="form-line">
+                                <dt>
+                                    {% if loop.first %}
+                                        {{ form_widget(parameter.parameter) }}
+                                    {% endif %}
+                                </dt>
+                                <dd>
+                                    <span class="svg svg-arrow-right"></span>
+                                    {{ localeFlag(locale) }}
+                                    {{ form_widget(valueTextLocaleForm) }}
+                                    {{ form_errors(valueTextLocaleForm) }}
+                                    {% if loop.first %}
+                                        <a href="#" class="js-parameters-item-remove table-form__action"><i class="svg svg-circle-cross"></i></a>
+                                    {% endif %}
+                                </dd>
+                            </dl>
+                        {% endfor %}
+                    </div>
+                {% endmacro %}
 
-                    <tr class="js-parameters-empty-item table-form__row">
-                        <td class="table-form__cell" colspan="4">{{ 'Add some parameters'|trans }}</td>
-                    </tr>
-                </tbody>
-            </table>
+                {% for key, parameter in form.parameters %}
+                    {{ _self.parameterRow(parameter, key) }}
+                {% else %}
+                    {% do form.parameters.setRendered %}
+                {% endfor %}
 
-            <div class="form-line form-line--no-top-border">
-                <div class="form-line__line form-line__line--no-space">
+                <dl class="js-parameters-empty-item form-line">
+                    <dt></dt>
+                    <dd>{{ 'Add some parameters'|trans }}</dd>
+                </dl>
+            </div>
+
+            <dl class="form-line">
+                <dd>
                     <a href="#" class="js-parameters-item-add btn btn--plus">
                         <i class="btn__icon">+</i>
                         {{ 'Add another parameter'|trans }}
                     </a>
-                </div>
-            </div>
+                </dd>
+            </dl>
         </div>
 
         <div class="form-group wrap-border">
@@ -295,7 +239,7 @@
 
             {{ seoFormRowMacros.multidomainRow(form.seoMetaDescriptions, 'Meta description'|trans, 155, 'input--seo') }}
 
-            {{ seoFormRowMacros.multidomainRow(form.seoH1s, 'Heading (H1)'|trans) }}
+            {{ form_row(form.seoH1s, { label: 'Heading (H1)'|trans } ) }}
 
             {% block product_urls %}{% endblock %}
         </div>
@@ -306,8 +250,7 @@
             </div>
 
             {% block images %}{% endblock %}
-
-            {{ form_widget(form.imagesToUpload, { attr: { class: 'box-upload--bordered' }, infoText: 'You can upload following formats: PNG, JPG, GIF'|trans }) }}
+            {{ form_row(form.imagesToUpload, { label: false, infoText: 'You can upload following formats: PNG, JPG, GIF'|trans }) }}
             {{ form_errors(form.imagesToUpload) }}
             {{ form_widget(form.imagesToDelete, { attr: { style: 'display: none;' } }) }}
         </div>

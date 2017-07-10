@@ -8,14 +8,9 @@
 {% endblock %}
 
 {% block image %}
-    <div class="form-line">
-        <label class="form-line__label">
-            {{ 'Image'|trans }}:
-        </label>
-        <div class="form-line__side">
-            <div class="form-line__item">
-                {{ image(category, { size: 'original', height: 100 }) }}
-            </div>
-        </div>
-    </div>
+    <dl class="form-line">
+        <dd>
+            {{ image(category, { size: 'original', height: 100 }) }}
+        </dd>
+    </dl>
 {% endblock %}

@@ -1,22 +1,21 @@
-.box-upload {
-    background: @color-f;
+@form-upload-drop-place-width: 70%;
+@form-upload-delimiter-word-width: 22px;
+@form-upload-inner-gap: 3px;
+
+.form-upload {
     clear: both;
+    width: 100%;
 
-    &--bordered {
-        padding: 10px 15px;
-
-        border: 1px solid @color-border-dark;
-        border-top: none;
-    }
+    background: @color-f;
 
     &__uploading {
-        margin: 0 3px;
+        margin: 0 @form-upload-inner-gap;
     }
 
     &__place {
         position: relative;
 
-        border: 3px solid @color-f;
+        border: @form-upload-inner-gap solid @color-f;
         background: @bg-upload;
         font-size: 0;
 
@@ -24,9 +23,8 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            left: 70%;
+            left: @form-upload-drop-place-width;
             width: 0;
-            height: 100%;
             content: '';
 
             border-left: 1px solid @color-f;
@@ -36,7 +34,7 @@
             display: inline-block;
             vertical-align: middle;
             padding: 30px;
-            width: 70%;
+            width: @form-upload-drop-place-width;
 
             text-align: center;
             font-size: 16px;
@@ -65,11 +63,11 @@
         &__between {
             position: absolute;
             top: 50%;
-            left: 70%;
-            height: 22px;
-            line-height: 22px;
-            width: 44px;
-            margin: -11px 0 0 -22px;
+            left: @form-upload-drop-place-width;
+            height: @form-upload-delimiter-word-width;
+            line-height: @form-upload-delimiter-word-width;
+            width: @form-upload-delimiter-word-width*2;
+            margin: -@form-upload-delimiter-word-width/2 0 0 -@form-upload-delimiter-word-width;
             z-index: 2;
 
             text-align: center;

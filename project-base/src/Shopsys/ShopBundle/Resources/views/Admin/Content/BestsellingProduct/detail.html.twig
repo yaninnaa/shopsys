@@ -10,13 +10,23 @@
         <div class="js-form-group">
             {{ form_errors(form.products) }}
 
-            <div id="{{ form.products.vars.id }}">
-                {% for productForm in form.products %}
-                    <div class="form-line js-bestselling-product-container">
-                        <label class="form-line__item form-line__item--text form-line__item--fixed-width">{{ loop.index }}</label>
-                        {{ form_widget(productForm) }}
-                    </div>
-                {% endfor %}
+            <div class="form-group">
+                <div class="form-group__title">
+                    {{ 'Products'|trans }}
+                </div>
+
+                <div id="{{ form.products.vars.id }}">
+                    {% for productForm in form.products %}
+                        <dl class="form-line form-line--small-label js-bestselling-product-container">
+                            <dt>
+                                {{ loop.index }}.
+                            </dt>
+                            <dd>
+                                {{ form_widget(productForm) }}
+                            </dd>
+                        </dl>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 

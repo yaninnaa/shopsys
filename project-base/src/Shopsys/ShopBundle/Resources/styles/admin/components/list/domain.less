@@ -1,21 +1,27 @@
+@list-domain-image-width: @in-image-width + 10;
+@list-domain-info-width: 20px;
+@list-domain-name-width: ~"calc(100% - @{list-domain-image-width} - @{list-domain-info-width})";
+
 .list-domain {
     .reset-ul();
-
     text-align: left;
 
     &__item {
         padding-bottom: 5px;
 
+        font-size: 0;
+
         &__image {
-            float: left;
-            width: 55px;
+            display: inline-block;
+            vertical-align: middle;
+            width: @list-domain-image-width;
         }
 
         &__info {
-            float: right;
-            width: 40px;
-
+            display: inline-block;
+            vertical-align: middle;
             text-align: right;
+            width: @list-domain-info-width;
 
             &__visible {
                 padding: 0;
@@ -33,8 +39,11 @@
         }
 
         &__name {
-            display: block;
-            margin: 0 40px 0 55px;
+            display: inline-block;
+            vertical-align: middle;
+            width: @list-domain-name-width;
+
+            font-size: 14px;
 
             i {
                 margin-left: 5px;

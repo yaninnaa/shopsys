@@ -1,69 +1,48 @@
 {% macro row(form, label, recommendedLength = null, cssClass = '') %}
-    {% if recommendedLength is not null %}
-        {% set cssClass = cssClass ~ ' js-characters-counter-input' %}
-    {% endif %}
-
-    <div class="form-line">
-        <strong class="form-line__label">
+    <dl class="form-line">
+        <dt>
             {{ form_label(form, label) }}
-        </strong>
+        </dt>
 
-        <div class="form-line__side js-characters-counter">
-            <div class="form-line__item form-line__item--left">
-                <div class="input__wrap">
-                    {% set attr = form.vars.attr|merge({class: form.vars.attr.class|default('') ~ ' ' ~ cssClass}) %}
-                    {{ form_widget(form, {attr: attr}) }}
-                </div>
-            </div>
-
-            {% if recommendedLength is not null %}
-                <div class="form-line__count">
-                    <div class="form-line__count__desc js-characters-counter-info" data-recommended-length="{{ recommendedLength }}"></div>
-                </div>
-            {% endif %}
-            {{ form_errors(form) }}
-        </div>
-    </div>
+        {% if recommendedLength is not null %}
+            <dd class="js-characters-counter">
+                {{ _self.formWidgetWithMergedClass(form, cssClass ~ ' js-characters-counter-input') }}
+                <div class="js-characters-counter-info in-message in-message--neutral" data-recommended-length="{{ recommendedLength }}"></div>
+            </dd>
+        {% else %}
+            <dd>
+                {{ _self.formWidgetWithMergedClass(form, cssClass) }}
+            </dd>
+        {% endif %}
+    </dl>
 {% endmacro %}
 
 {% macro multidomainRow(multidomainForm, label, recommendedLength = null, cssClass = '') %}
-    {% if isMultidomain() %}
-        {% set cssClass = cssClass ~ ' input--domain' %}
-    {% endif %}
-    {% if recommendedLength is not null %}
-        {% set cssClass = cssClass ~ ' js-characters-counter-input' %}
-    {% endif %}
-
-    <div class="form-line">
-        <strong class="form-line__label">
-            {{ label }}:
-        </strong>
-        {% for domainId, domainForm in multidomainForm %}
-            <div class="form-line__side {% if not loop.first %}margin-top-5{% endif %} js-characters-counter">
-                <div class="form-line__item form-line__item--left">
-                    <div class="input__wrap">
-                        {% set attr = domainForm.vars.attr|merge({class: cssClass ~ ' ' ~ domainForm.vars.attr.class|default('') }) %}
-
-                        {{ form_widget(domainForm, {
-                            multidomain: true,
-                            domainId: domainId,
-                            attr: attr
-                        }) }}
-                        {% if isMultidomain() %}
-                            <span class="input__domain">
-                                {{ domainIcon(domainId) }}
-                            </span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if recommendedLength is not null %}
-                    <div class="form-line__count">
-                        <span class="form-line__count__desc js-characters-counter-info" data-recommended-length="{{ recommendedLength }}"></span>
-                    </div>
+    {% for domainId, domainForm in multidomainForm %}
+        <dl class="form-line {% if not loop.first %}form-line--no-delimiter{% endif %}">
+            <dt>
+                {% if loop.first %}
+                    {{ label }}:
                 {% endif %}
-                {{ form_errors(domainForm) }}
-            </div>
-        {% endfor %}
-    </div>
+            </dt>
+            {% if recommendedLength is not null %}
+                <dd class="js-characters-counter">
+                    {{ domainIcon(domainId, 'in-image--align-to-top') }}
+                    {{ _self.formWidgetWithMergedClass(domainForm, cssClass ~ ' js-characters-counter-input') }}
+                    <div class="js-characters-counter-info in-message in-message--neutral" data-recommended-length="{{ recommendedLength }}"></div>
+                </dd>
+            {% else %}
+                <dd>
+                    {{ domainIcon(domainId, 'in-image--align-to-top') }}
+                    {{ _self.formWidgetWithMergedClass(domainForm, cssClass) }}
+                </dd>
+            {% endif %}
+        </dl>
+    {% endfor %}
+{% endmacro %}
+
+{% macro formWidgetWithMergedClass(form, cssClass = '') %}
+    {% set attr = form.vars.attr|merge({class: form.vars.attr.class|default('') ~ ' ' ~ cssClass}) %}
+    {{ form_widget(form, {attr: attr}) }}
+    {{ form_errors(form) }}
 {% endmacro %}

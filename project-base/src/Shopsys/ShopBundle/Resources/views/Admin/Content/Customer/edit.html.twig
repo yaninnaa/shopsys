@@ -12,46 +12,41 @@
 {% endblock %}
 
 {% block customer_created_at %}
-    <div class="form-line">
-        <div class="form-line__label">
+    <dl class="form-line">
+        <dt>
             {{ 'Registration date'|trans }}:
-        </div>
-        <div class="form-line__side">
-            <div class="form-line__item form-line__item--text">
-                {{ user.createdAt|formatDateTime }}
-            </div>
-        </div>
-    </div>
+        </dt>
+        <dd>
+            {{ user.createdAt|formatDateTime }}
+        </dd>
+    </dl>
 {% endblock %}
 
 {% block customer_last_login %}
-    <div class="form-line">
-        <div class="form-line__label">
+    <dl class="form-line">
+        <dt>
             {{ 'Last login'|trans }}:
-        </div>
-        <div class="form-line__side">
-            <div class="form-line__item form-line__item--text">
-                {% if user.lastLogin != null %}
-                    {{ user.lastLogin|formatDateTime }}
-                {% else %}
-                    {{ 'never'|trans }}
-                {% endif %}
-            </div>
-        </div>
-    </div>
+        </dt>
+        <dd>
+            {% if user.lastLogin != null %}
+                {{ user.lastLogin|formatDateTime }}
+            {% else %}
+                {{ 'never'|trans }}
+            {% endif %}
+        </dd>
+    </dl>
 {% endblock %}
 
 {% block customer_domain %}
     {% if isMultidomain() %}
-        <div class="form-line js-change-price-categories">
-            <label class="form-line__label">{{ 'Domain'|trans }}:</label>
-
-            <div class="form-line__side">
-                <div class="form-line__item form-line__item--text">
-                    {{ domainIcon(user.domainId) }} {{ getDomainName(user.domainId) }}
-                </div>
-            </div>
-        </div>
+        <dl class="form-line js-change-price-categories">
+            <dt>
+                {{ 'Domain'|trans }}:
+            </dt>
+            <dd>
+                {{ domainIcon(user.domainId) }} {{ getDomainName(user.domainId) }}
+            </dd>
+        </dl>
     {% endif %}
 {% endblock %}
 

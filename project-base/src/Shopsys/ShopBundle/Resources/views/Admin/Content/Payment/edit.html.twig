@@ -4,47 +4,58 @@
 {% block h1 %}{{ 'Editing payment'|trans }} - {{ paymentDetail.payment.name }}{% endblock %}
 
 {% block payment_base_prices %}
-    <div id="transport_prices">
-        <div class="form-price-heading">
-            <div class="form-price-heading__cell form-price-heading__cell--field">
-                {{ inputPriceLabel({ isSimple: true }) }}
-            </div>
-            <div class="form-price-heading__cell form-price-heading__cell--price">{{ 'Price excluding VAT'|trans }}</div>
-            <div class="form-price-heading__cell form-price-heading__cell--price">{{ 'Price including VAT'|trans }}</div>
-        </div>
-        {% for currencyId, currency in currencies %}
-            <div class="form-line">
-                <div class="form-line__label">
-                    {{ form_label(form.pricesByCurrencyId[currencyId], 'Base price in %currencyCode%'|trans({'%currencyCode%': currency.code}), { isSimple: true } ) }}
+    <div id="transport_prices" class="box-product-prices">
+        <dl class="form-line form-line--visible">
+            <dt></dt>
+            <dd>
+                <div class="box-product-prices__input">
+                    <strong>
+                        {{ inputPriceLabel() }}
+                    </strong>
                 </div>
-                <div class="form-line__side">
-                    <div class="form-line__item">
+                <div class="box-product-prices__error"></div>
+                <div class="box-product-prices__price">
+                    <strong>
+                        {{ 'Price excluding VAT'|trans }}
+                    </strong>
+                </div>
+                <div class="box-product-prices__price">
+                    <strong>
+                        {{ 'Price including VAT'|trans }}
+                    </strong>
+                </div>
+            </dd>
+        </dl>
+        {% for currencyId, currency in currencies %}
+            <dl class="form-line">
+                <dt>
+                    {{ form_label(form.pricesByCurrencyId[currencyId], 'Base price in %currencyCode%'|trans({'%currencyCode%': currency.code}), { isSimple: true } ) }}
+                </dt>
+                <dd>
+                    <div class="box-product-prices__input">
                         {{ form_widget(form.pricesByCurrencyId[currencyId], { symbolAfterInput: currencySymbolByCurrencyId(currencyId) }) }}
                     </div>
-                    <div class="form-line__item--right">
-                        <div class="form-line__item__price">
-                            {{ paymentDetail.basePricesByCurrencyId[currencyId].priceWithoutVat|priceWithCurrencyByCurrencyId(currencyId) }}
-                        </div>
-                        <div class="form-line__item__price">
-                            <strong>{{ paymentDetail.basePricesByCurrencyId[currencyId].priceWithVat|priceWithCurrencyByCurrencyId(currencyId) }}</strong>
-                        </div>
+                    <div class="box-product-prices__error">
+                        {{ form_errors(form.pricesByCurrencyId[currencyId]) }}
                     </div>
-                    {{ form_errors(form.pricesByCurrencyId[currencyId]) }}
-                </div>
-            </div>
+                    <div class="box-product-prices__price">
+                        {{ paymentDetail.basePricesByCurrencyId[currencyId].priceWithoutVat|priceWithCurrencyByCurrencyId(currencyId) }}
+                    </div>
+                    <div class="box-product-prices__price">
+                        <strong>
+                            {{ paymentDetail.basePricesByCurrencyId[currencyId].priceWithVat|priceWithCurrencyByCurrencyId(currencyId) }}
+                        </strong>
+                    </div>
+                </dd>
+            </dl>
         {% endfor %}
     </div>
 {% endblock %}
 
 {% block image %}
-    <div class="form-line">
-        <label class="form-line__label">
-            {{ 'Image'|trans }}:
-        </label>
-        <div class="form-line__side">
-            <div class="form-line__item">
-                {{ image(paymentDetail.payment, { size: 'original', height: 100 }) }}
-            </div>
-        </div>
-    </div>
+    <dl class="form-line">
+        <dd>
+            {{ image(paymentDetail.payment, { size: 'original', height: 100 }) }}
+        </dd>
+    </dl>
 {% endblock %}

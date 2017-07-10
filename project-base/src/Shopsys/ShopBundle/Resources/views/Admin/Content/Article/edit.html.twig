@@ -5,19 +5,19 @@
 
 {% block article_domain %}
     {% if isMultidomain() %}
-        <div class="form-line">
-            <label class="form-line__label">{{ 'Domain:'|trans }}</label>
-            <div class="form-line__side">
-                <div class="form-line__item">
-                    <input
-                        type="text"
-                        value="{{ getDomainName(article.domainId) }}"
-                        class="input"
-                        readonly="readonly"
-                    >
-                </div>
-            </div>
-        </div>
+        <dl class="form-line">
+            <dt>
+                <label>{{ 'Domain:'|trans }}</label>
+            </dt>
+            <dd>
+                <input
+                    type="text"
+                    value="{{ getDomainName(article.domainId) }}"
+                    class="input"
+                    readonly="readonly"
+                >
+            </dd>
+        </dl>
     {% endif %}
 {% endblock %}
 

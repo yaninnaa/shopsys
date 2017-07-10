@@ -22,7 +22,7 @@
 
     &__close {
         position: absolute;
-        top: @in-message-close-size;
+        top: 0;
         right: @in-message-close-size;
         padding: @in-message-close-size;
         display: inline-block;
@@ -96,43 +96,56 @@
     &--danger {
         color: @color-message-alert-text;
     }
+
+    &--neutral {
+        background: @color-message-neutral;
+        color: @color-message-neutral-text;
+    }
+}
+
+// Modifications - depends on content around
+.in--message {
+    &--next-to-domain-or-flag-image {
+        margin-left: @image-of-domain-or-flag-width + @form-theme-item-gap;
+    }
 }
 
 
 // Modifications - special type - pinned
 @in-message-pin-width: 230px;
 @in-message-pin-place-for-close: 25px;
-@in-message-pin-padding: 10px;
-@in-message-pin-position: 5px;
+@in-message-pin-padding: 5px;
+@in-message-pin-position-top: 5px;
+@in-message-pin-position-left: 7px;
 @in-message-pin-size: 8px;
+@in-message-pin-border-width: 1px;
 
 .in-message {
     &--pin {
         position: absolute;
-        top: 100%;
-        left: 0;
-        margin-top: @in-message-pin-position*2;
+        top: -7px;
+        right: 30px;
+        margin-top: @in-message-pin-position-top;
         width: @in-message-pin-width;
         z-index: 99;
         padding: @in-message-pin-padding @in-message-pin-place-for-close @in-message-pin-padding @in-message-pin-padding;
-
         text-align: left;
-        border: 1px solid darken(@color-message-alert, 15%);
+
+        border: @in-message-pin-border-width solid darken(@color-message-alert, 15%);
 
         &:after {
             display: block;
             position: absolute;
-            top: -@in-message-pin-position;
-            left: @in-message-pin-position;
+            top: ~"calc(50% - @{in-message-pin-size}/2)";
+            right: ~"calc((-@{in-message-pin-size}/2) - @{in-message-pin-border-width})";
             width: @in-message-pin-size;
             height: @in-message-pin-size;
             content: '';
-
-            border-top: 1px solid darken(@color-message-alert, 15%);
-            border-left: 1px solid darken(@color-message-alert, 15%);
-            background: @color-message-alert;
-
             transform: rotate(45deg);
+
+            border-top: @in-message-pin-border-width solid darken(@color-message-alert, 15%);
+            border-right: @in-message-pin-border-width solid darken(@color-message-alert, 15%);
+            background: @color-message-alert;
         }
 
         .box-login & {

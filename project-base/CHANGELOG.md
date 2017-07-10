@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - implementations of `StandardFeedItemInterface` now must have implemented methods `isSellingDenied()` and `getCurrencyCode()`(@MattCzerner)
 - implementations of `FeedConfigInterface` now must have implemented method `getAdditionalInformation()` (@MattCzerner)
 
+### Changed
+- simplified HTML structure of forms in administration that uses simply `<dl>`, `<dt>` and `<dd>` tags instead of `<div>` tags with hard-to-remember CSS classes (@seedya)
+
+### Removed
+- `form-line__item*` CSS classes
+
 ## [2.0.0-beta.16.0] - 2017-09-19
 ### Added
 - new command `shopsys:plugin-data-fixtures:load` for loading demo data from plugins (@MattCzerner)

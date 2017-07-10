@@ -82,7 +82,7 @@
                 attr: { class: 'js-checkbox-toggle', 'data-checkbox-toggle-container-id': 'js-delivery-address-fields' },
                 label: 'I want to deliver products to different address than the billing one'|trans})
             }}
-            <div id="js-delivery-address-fields" class="form-line__js">
+            <div id="js-delivery-address-fields">
                 {{ form_row(form.deliveryAddressData.companyName, { label: 'Company'|trans}) }}
                 {{ form_row(form.deliveryAddressData.firstName, { label: 'First name'|trans}) }}
                 {{ form_row(form.deliveryAddressData.lastName, { label: 'Last name'|trans}) }}

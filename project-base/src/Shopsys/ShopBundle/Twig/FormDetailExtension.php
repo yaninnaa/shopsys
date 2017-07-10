@@ -40,19 +40,17 @@ class FormDetailExtension extends Twig_Extension
         if ($object === null) {
             return '';
         } else {
-            return '<div class="form-line">
-                        <label class="form-line__label">ID:</label>
-                        <div class="form-line__side">
-                            <div class="form-line__item">
-                                <input
-                                    type="text"
-                                    value="' . htmlspecialchars($object->getId(), ENT_QUOTES) . '"
-                                    class="input"
-                                    readonly="readonly"
-                                >
-                            </div>
-                        </div>
-                    </div>';
+            return '<dl class="form-line">
+                        <dt><label>ID:</label></dt>
+                        <dd class="form-line__side">
+                            <input
+                                type="text"
+                                value="' . htmlspecialchars($object->getId(), ENT_QUOTES) . '"
+                                class="input"
+                                readonly="readonly"
+                            >
+                        </dd>
+                    </dl>';
         }
     }
 

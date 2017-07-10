@@ -9,22 +9,20 @@
             <h2 class="form-group__title">
                 {{ 'Link to the overview of brands'|trans }}
             </h2>
-                {% for domain in domains %}
-                <div class="form-line">
-                    <div class="form-line__line">
-                        <div class="form-line__label">
+            {% for domain in domains %}
+                <dl class="form-line">
+                    <dd>
+                        {% if isMultidomain() %}
+                            {{ domainIcon(domain.id) }}
+                        {% endif %}
+                        <span>
                             {{ getDomainName(domain.id) }}
-                            {% if isMultidomain() %}
-                                {{ domainIcon(domain.id) }}
-                            {% endif %}
-                        </div>
-                        <div class="form-line__item form-line__item--text">
-                            <a href="{{ findUrlByDomainId('front_brand_list', {}, domain.id) }}" target="_blank">
-                                {{ findUrlByDomainId('front_brand_list', {}, domain.id) }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                        </span>
+                        <a href="{{ findUrlByDomainId('front_brand_list', {}, domain.id) }}" target="_blank">
+                            {{ findUrlByDomainId('front_brand_list', {}, domain.id) }}
+                        </a>
+                    </dd>
+                </dl>
             {% endfor %}
         </div>
         <a href="{{ url('admin_brand_new') }}" class="btn btn--plus wrap-bar__btn">

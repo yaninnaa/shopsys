@@ -1,17 +1,23 @@
+@form-compulsory-size: 18px;
+@form-compulsory-border-width: 1px;
+
 .form-compulsory {
-    width: 18px;
-    height: 18px;
-    line-height: 16px;
+    display: inline-block;
+    width: @form-compulsory-size;
+    height: @form-compulsory-size;
+    line-height: @form-compulsory-size - 2*@form-compulsory-border-width;
     padding: 0;
     z-index: 50;
     position: absolute;
+    top: 50%;
+    left: 0;
+    margin: -@form-compulsory-size/2 0 0 -@form-compulsory-size/2;
 
     text-align: center;
     font-weight: normal;
     background: @color-f;
-    border: 1px solid @color-border;
+    border: @form-compulsory-border-width solid @color-border;
     color: @color-red;
-
     border-radius: 50%;
 
     .sprite {

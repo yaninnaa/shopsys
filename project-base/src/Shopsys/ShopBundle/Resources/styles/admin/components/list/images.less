@@ -1,23 +1,27 @@
 @list-images-pipe-height: 20px;
+@list-images-pipe-width: 120px;
+
+@list-images-gap: 14px;
+
+@list-images-icons-position: 5px;
+@list-images-overlay-width: 120px;
+@list-images-overlay-height: @list-images-overlay-width/2;
 
 .list-images {
-    .reset-ul();
-    margin: 0 0 0 -15px;
+    width: 100%;
 
-    font-size: 0;
+    &__list {
+        margin: 0 0 0 -@list-images-gap;
+        padding: 0;
 
-    &__wrap {
-        padding: 10px 15px;
-
-        background: @color-f;
-        border: 1px solid @color-border-dark;
-        border-bottom-color: @color-border;
+        list-style-type: none;
+        font-size: 0;
     }
 
     &__item {
         display: inline-block !important;
         width: 100% / 4;
-        padding-left: 14px;
+        padding-left: @list-images-gap;
         vertical-align: top;
         margin-bottom: 10px;
 
@@ -74,26 +78,15 @@
         }
 
         img {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 100%;
-            margin: auto;
-
-            text-align: center;
+            .center-image();
         }
 
         &__remove,
         &__move,
         &__revert {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: @list-images-icons-position;
+            right: @list-images-icons-position;
             z-index: 3;
 
             font-size: 16px;
@@ -110,7 +103,7 @@
         }
 
         &__move {
-            left: 5px;
+            left: @list-images-icons-position;
             right: auto;
             cursor: move;
         }
@@ -119,9 +112,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 120px;
-            height: 60px;
-            margin: -30px 0 0 -60px;
+            width: @list-images-overlay-width;
+            height: @list-images-overlay-height;
+            margin: -@list-images-overlay-height/2 0 0 -@list-images-overlay-width/2;
             z-index: 2;
             vertical-align: middle;
             padding: 10px;
@@ -161,9 +154,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 120px;
+            width: @list-images-pipe-width;
             height: @list-images-pipe-height;
-            margin: -@list-images-pipe-height/2 0 0 -60px;
+            margin: -@list-images-pipe-height/2 0 0 -@list-images-pipe-width/2;
             line-height: @list-images-pipe-height;
 
             background: @color-0;

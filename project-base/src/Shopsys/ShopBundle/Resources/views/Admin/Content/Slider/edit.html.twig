@@ -5,24 +5,21 @@
 
 {% block domain %}
     {% if isMultidomain() %}
-        <div class="form-line">
-            <label class="form-line__label">{{ 'Domain'|trans }}:</label>
-            <div class="form-line__side">
-                <div class="form-line__item">
-                    <input type="text" value="{{ getDomainName(sliderItem.domainId) }}" class="input" readonly="readonly" />
-                </div>
-            </div>
-        </div>
+        <dl class="form-line">
+            <dt>
+                {{ 'Domain'|trans }}:
+            </dt>
+            <dd>
+                <input type="text" value="{{ getDomainName(sliderItem.domainId) }}" class="input" readonly="readonly" />
+            </dd>
+        </dl>
     {% endif %}
 {% endblock %}
 
 {% block image %}
-    <div class="form-line">
-        <label class="form-line__label">
-            {{ 'Image'|trans }}:
-        </label>
-        <div class="form-line__line">
+    <dl class="form-line">
+        <dd>
             {{ image(sliderItem, { size: 'original', height: 100 }) }}
-        </div>
-    </div>
+        </dd>
+    </dl>
 {% endblock %}

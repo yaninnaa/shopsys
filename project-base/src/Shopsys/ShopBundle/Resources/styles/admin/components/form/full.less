@@ -1,44 +1,37 @@
+@form-full-space-for-flag: 45px;
+@form-full-gap: 7px;
+
 .form-full {
+    margin: 0;
+    padding: 0;
+
     &__title {
-        .clearfix();
-        padding: 4px;
+        margin: 0;
+        padding: 4px 0;
+        line-height: 24px;
 
-        &__in {
-            display: inline-block;
-            line-height: 24px;
-
-            font-weight: bold;
-            font-size: 15px;
-            text-transform: uppercase;
-        }
-
-        &__buttons{
-            float: right;
-            margin-left: 10px;
-        }
+        font-weight: bold;
+        font-size: 15px;
+        text-transform: uppercase;
     }
 
     &__field {
         position: relative;
-        margin-bottom: 10px;
+        padding: 0;
+        margin: 0 0 @form-full-gap;
 
-        &__input {
-            width: 100%;
+        font-size: 0;
+
+        &__flag {
+            width: @form-full-space-for-flag;
+            display: inline-block;
+            vertical-align: middle;
         }
 
-        &__item {
-            position: absolute;
-
-            &--compulsory {
-                left: -9px;
-                top: 7px;
-            }
-
-            &--error {
-                top: 4px;
-                left: -12px;
-                z-index: 70;
-            }
+        .input {
+            display: inline-block;
+            vertical-align: middle;
+            width: ~"calc(100% - @{form-full-space-for-flag})";
         }
     }
 }

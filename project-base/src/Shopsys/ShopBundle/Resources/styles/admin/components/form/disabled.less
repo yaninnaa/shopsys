@@ -1,12 +1,12 @@
+@form-disabled-size: 25px;
+
 .form-disabled {
-    width: 25px;
-    height: 25px;
+    width: @form-disabled-size;
+    height: @form-disabled-size;
     line-height: 18px;
     padding: 0;
-    z-index: 60;
-    position: absolute;
-
     text-align: center;
+
     font-size: 18px;
     background: @color-f;
     border: 1px solid @color-border;
@@ -16,7 +16,7 @@
 
     .svg {
         position: relative;
-        top: 2px;
+        top: 1px;
 
         font-size: 13px;
     }

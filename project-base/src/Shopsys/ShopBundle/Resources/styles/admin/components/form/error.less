@@ -1,25 +1,22 @@
+@form-error-size: 25px;
+@form-error-position-top: 24px;
+
 .form-error {
-    width: 25px;
-    height: 25px;
-    line-height: 18px;
-    padding: 0;
+    display: inline-block;
+    width: @form-error-size;
+    height: @form-error-size;
+    text-align: center;
     z-index: 70;
     position: absolute;
+    top: @form-error-position-top;
+    margin-top: -@form-error-size/2;
+    right: 10px;
 
-    text-align: center;
-    font-size: 18px;
-    background: @color-f;
-    border: 1px solid @color-border;
     color: @color-red;
-
     border-radius: 50%;
+    background: @color-f;
 
     .svg {
-        position: relative;
-        left: 2px;
-        top: 2px;
-        float: left;
-
         font-size: 20px;
     }
 }

@@ -7,13 +7,20 @@
     {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        <div class="wrap-border">
+        <div class="wrap-border form-group">
             <div class="form-group__title">
                 {{ 'Basic information'|trans }}
             </div>
             {{ form_id(brand|default(null)) }}
             {{ form_row(form.brandData.name, { label: 'Name'|trans}) }}
-            {{ form_row(form.brandData.descriptions, { label: 'Description'|trans}) }}
+        </div>
+
+        <div class="wrap-border form-group">
+            <div class="form-group__title">
+                {{ 'Description'|trans }}
+            </div>
+
+            {{ form_row(form.brandData.descriptions, { label: false }) }}
         </div>
 
         <div class="wrap-border">
@@ -32,7 +39,7 @@
                 {{ 'Image'|trans }}
             </div>
             {% block image %}{% endblock %}
-            {{ form_row(form.brandData.image, { label: 'Upload image'|trans, infoText: 'You can upload following formats: PNG, JPG, GIF'|trans }) }}
+            {{ form_row(form.brandData.image, { label: false, infoText: 'You can upload following formats: PNG, JPG, GIF'|trans }) }}
         </div>
 
         {% embed '@ShopsysShop/Admin/Inline/FixedBar/fixedBar.html.twig' %}

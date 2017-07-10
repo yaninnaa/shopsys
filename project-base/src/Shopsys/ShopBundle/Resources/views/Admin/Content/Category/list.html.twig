@@ -52,11 +52,13 @@
     {% endmacro %}
 
     {% if isForAllDomains %}
-        <div class="form-line">
-            <div id="js-category-tree-sorting" class="form-tree form-tree--open form-tree--dragable">
-                {{ _self.categoryTreeItem(categoryDetails, true) }}
-            </div>
-        </div>
+        <dl class="form-line">
+            <dd>
+                <div id="js-category-tree-sorting" class="form-tree form-tree--open form-tree--dragable">
+                    {{ _self.categoryTreeItem(categoryDetails, true) }}
+                </div>
+            </dd>
+        </dl>
 
         {% embed '@ShopsysShop/Admin/Inline/FixedBar/fixedBar.html.twig' %}
             {% block fixed_bar_content %}

@@ -22,8 +22,8 @@
             {% block article_placement %}{% endblock %}
 
             {{ form_row(form.name, { label: 'Name'|trans}) }}
-            {{ form_row(form.hidden, { label: 'Hide'|trans, newline: true}) }}
-            {{ form_row(form.text, { label: 'Content'|trans, newline: true}) }}
+            {{ form_row(form.hidden, { label: 'Hide'|trans}) }}
+            {{ form_row(form.text, { label: false }) }}
         </div>
 
         <div class="form-group">

@@ -18,66 +18,64 @@
             </div>
             <fieldset>
                 {{ form_id(order) }}
-                <div class="form-line">
-                    <div class="form-line__line form-line__line--no-space">
-                        <div class="form-line__item form-line__item--text">
-                            <a href="{{ findUrlByDomainId('front_customer_order_detail_unregistered', { urlHash: order.urlHash }, order.domainId) }}" target="_blank">
-                                {{ findUrlByDomainId('front_customer_order_detail_unregistered', { urlHash: order.urlHash }, order.domainId) }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <dl class="form-line">
+                    <dd>
+                        <a href="{{ findUrlByDomainId('front_customer_order_detail_unregistered', { urlHash: order.urlHash }, order.domainId) }}" target="_blank">
+                            {{ findUrlByDomainId('front_customer_order_detail_unregistered', { urlHash: order.urlHash }, order.domainId) }}
+                        </a>
+                    </dd>
+                </dl>
                 {% if isMultidomain() %}
-                    <div class="form-line">
-                        <label class="form-line__label">{{ 'Domain'|trans }}:</label>
-                        <div class="form-line__side">
-                            <div class="form-line__item form-line__item--text">
-                                {{ domainIcon(order.domainId) }} {{ getDomainName(order.domainId) }}
-                            </div>
-                        </div>
-                    </div>
+                    <dl class="form-line">
+                        <dt>
+                            {{ 'Domain'|trans }}:
+                        </dt>
+                        <dd>
+                            {{ domainIcon(order.domainId) }} {{ getDomainName(order.domainId) }}
+                        </dd>
+                    </dl>
                 {% endif %}
                 {{ form_row(form.orderNumber, { label: 'Order number'|trans }) }}
-                <div class="form-line">
-                    <label class="form-line__label">{{ 'Created on'|trans }}:</label>
-                    <div class="form-line__side">
-                        <div class="form-line__item form-line__item--text">
-                            {{ order.createdAt|formatDateTime }}
-                        </div>
-                    </div>
-                </div>
+                <dl class="form-line">
+                    <dt>
+                        {{ 'Created on'|trans }}:
+                    </dt>
+                    <dd>
+                        {{ order.createdAt|formatDateTime }}
+                    </dd>
+                </dl>
                 {{ form_row(form.status, { label: 'Status'|trans }) }}
-                <div class="form-line">
-                    <label class="form-line__label">{{ 'Customer'|trans }}:</label>
-                    <div class="form-line__side">
-                        <div class="form-line__item form-line__item--text">
-                            {% if order.customer is null%}
-                                {{ 'unregistered customer'|trans }}
-                            {% else %}
-                                <a href="{{ path('admin_customer_edit', { id: order.customer.id }) }}" target="_blank">
-                                    {% if order.customer.billingAddress.companyCustomer %}
-                                        {{ order.customer.billingAddress.companyName }} -
-                                    {% endif %}
-                                    {{ order.customer.lastName }}
-                                    {{ order.customer.firstName }}
-                                    <i class="svg svg-forward-page"></i>
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                {% if order.createdAsAdministrator is not null or order.createdAsAdministratorName is not null %}
-                    <div class="form-line">
-                        <label class="form-line__label">{{ 'Created by administrator'|trans }}:</label>
-                        <div class="form-line__side">
-                            <div class="form-line__item form-line__item--text">
-                                {% if order.createdAsAdministrator is null%}
-                                    {{ order.createdAsAdministratorName }}
-                                {% else %}
-                                    {{ order.createdAsAdministrator.realName }}
+                <dl class="form-line">
+                    <dt>
+                        {{ 'Customer'|trans }}:
+                    </dt>
+                    <dd>
+                        {% if order.customer is null%}
+                            {{ 'unregistered customer'|trans }}
+                        {% else %}
+                            <a href="{{ path('admin_customer_edit', { id: order.customer.id }) }}" target="_blank">
+                                {% if order.customer.billingAddress.companyCustomer %}
+                                {{ order.customer.billingAddress.companyName }} -
                                 {% endif %}
-                            </div>
-                        </div>
+                                {{ order.customer.lastName }}
+                                {{ order.customer.firstName }}
+                                <i class="svg svg-forward-page"></i>
+                            </a>
+                        {% endif %}
+                    </dd>
+                </dl>
+                {% if order.createdAsAdministrator is not null or order.createdAsAdministratorName is not null %}
+                    <dl class="form-line">
+                        <dt>
+                            {{ 'Created by administrator'|trans }}:
+                        </dt>
+                        <dd>
+                            {% if order.createdAsAdministrator is null%}
+                                {{ order.createdAsAdministratorName }}
+                            {% else %}
+                                {{ order.createdAsAdministrator.realName }}
+                            {% endif %}
+                        </dd>
                     </div>
                 {% endif %}
             </fieldset>
@@ -135,7 +133,7 @@
                     attr: { class: 'js-checkbox-toggle js-checkbox-toggle--inverted', 'data-checkbox-toggle-container-id': 'js-delivery-address-fields' },
                     label: 'Shipping address is the same as billing address'|trans})
                 }}
-                <div id="js-delivery-address-fields" class="form-line__js">
+                <div id="js-delivery-address-fields">
                     {{ form_row(form.deliveryFirstName, { label: 'First name'|trans }) }}
                     {{ form_row(form.deliveryLastName, { label: 'Last name'|trans }) }}
                     {{ form_row(form.deliveryCompanyName, { label: 'Company'|trans }) }}
