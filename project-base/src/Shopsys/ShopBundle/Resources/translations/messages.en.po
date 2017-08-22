@@ -659,6 +659,7 @@ msgstr ""
 #: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/list.html.twig:3
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/list.html.twig:4
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:14
 msgid "Categories"
 msgstr ""
 
@@ -678,11 +679,6 @@ msgstr ""
 
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/detail.html.twig:23
 msgid "Category Heureka.cz"
-msgstr ""
-
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:3
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:4
-msgid "Category guidepost on main page"
 msgstr ""
 
 #: CategoryController.php:79
@@ -3329,11 +3325,6 @@ msgstr ""
 msgid "Please wait until all files are uploaded and try again."
 msgstr ""
 
-#: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
-#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Category/top.html.twig:1
-msgid "Popular categories"
-msgstr ""
-
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Superadmin/cssDocumentation.html.twig:202
 msgid "Positive message"
 msgstr ""
@@ -4564,7 +4555,17 @@ msgstr ""
 msgid "To whole numbers"
 msgstr ""
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Order/edit.html.twig:213
+#: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Category/top.html.twig:1
+msgid "Top categories"
+msgstr ""
+
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:3
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:4
+msgid "Top categories on homepage"
+msgstr ""
+
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Order/edit.html.twig:211
 msgid "Total"
 msgstr ""
 

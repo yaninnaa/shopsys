@@ -92,7 +92,7 @@
           visible: false
     - label: 'Main page products'
       route: admin_topproduct_list
-    - label: 'Popular categories'
+    - label: 'Top categories'
       route: admin_topcategory_list
     - label: 'Advertising system'
       route: admin_advert_list

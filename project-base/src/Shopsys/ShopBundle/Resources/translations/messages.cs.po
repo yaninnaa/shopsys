@@ -659,6 +659,7 @@ msgstr "Katalogové číslo"
 #: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/list.html.twig:3
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/list.html.twig:4
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:14
 msgid "Categories"
 msgstr "Kategorie"
 
@@ -679,11 +680,6 @@ msgstr "Kategorie <strong>{{ name }}</strong> byla smazána"
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Category/detail.html.twig:23
 msgid "Category Heureka.cz"
 msgstr "Kategorie Heureka.cz"
-
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:3
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:4
-msgid "Category guidepost on main page"
-msgstr "Rozcestník kategorií na titulní stránce"
 
 #: CategoryController.php:79
 msgid "Category<strong><a href=\"{{ url }}\">{{ name }}</a></strong> was modified"
@@ -3329,11 +3325,6 @@ msgstr "Prosím zkontrolujte, zda jste správně zadali množství veškerých p
 msgid "Please wait until all files are uploaded and try again."
 msgstr "Prosím počkejte dokud nebudou nahrány všechny soubory a zkuste to znovu."
 
-#: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
-#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Category/top.html.twig:1
-msgid "Popular categories"
-msgstr "Rozcestník kategorií"
-
 #: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Superadmin/cssDocumentation.html.twig:202
 msgid "Positive message"
 msgstr "Pozitivní hláška"
@@ -4564,7 +4555,17 @@ msgstr "Abychom předešli možnosti zcizení účtu, je třeba změnu e-mailu �
 msgid "To whole numbers"
 msgstr "Na celá čísla (koruny)"
 
-#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Order/edit.html.twig:213
+#: src/Shopsys/ShopBundle/Resources/config/admin_menu.yml:
+#: src/Shopsys/ShopBundle/Resources/views/Front/Content/Category/top.html.twig:1
+msgid "Top categories"
+msgstr "Rozcestník kategorií"
+
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:3
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/TopCategory/list.html.twig:4
+msgid "Top categories on homepage"
+msgstr "Rozcestník kategorií na titulní stránce"
+
+#: src/Shopsys/ShopBundle/Resources/views/Admin/Content/Order/edit.html.twig:211
 msgid "Total"
 msgstr "Celkem"
 

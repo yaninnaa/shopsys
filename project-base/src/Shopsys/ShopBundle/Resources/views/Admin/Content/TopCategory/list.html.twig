@@ -1,7 +1,7 @@
 {% extends '@ShopsysShop/Admin/Layout/layoutWithPanel.html.twig' %}
 
-{% block title %}- {{ 'Category guidepost on main page'|trans }}{% endblock %}
-{% block h1 %}{{ 'Category guidepost on main page'|trans }}{% endblock %}
+{% block title %}- {{ 'Top categories on homepage'|trans }}{% endblock %}
+{% block h1 %}{{ 'Top categories on homepage'|trans }}{% endblock %}
 
 {% block main_content %}
     {{ render(controller('ShopsysShopBundle:Admin/Domain:domainTabs')) }}
@@ -11,7 +11,7 @@
     {{ form_errors(form) }}
     <div class="form-group">
         <div class="form-group__title">
-            {{ 'Popular categories'|trans }}
+            {{ 'Categories'|trans }}
         </div>
         {{ form_row(form.categories, { label: 'Category'|trans }) }}
     </div>
