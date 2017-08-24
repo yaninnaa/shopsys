@@ -293,6 +293,7 @@
                 <strong>{{ 'Short description can be set in the main variant.'|trans }}</strong>
             </dd>
         </dl>
+        {% do form.shortDescriptions.setRendered %}
     {% else %}
         {{ parent() }}
     {% endif %}
