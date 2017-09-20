@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - simplified HTML structure of forms in administration that uses simply `<dl>`, `<dt>` and `<dd>` tags instead of `<div>` tags with hard-to-remember CSS classes (@seedya)
 - *Popular categories* renamed to *Top categories* (@seedya)
+- CSS documentation in not translatable anymore (@seedya)
 
 ### Removed
 - `form-line__item*` CSS classes
