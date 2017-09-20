@@ -62,17 +62,6 @@ module.exports = function(grunt) {
                     }
                 },
             {% endfor -%}
-
-            {% for domain in domains -%}
-                wysiwygLocalized{{ domain.id }}: {
-                    files: {
-                        'web/assets/admin/styles/wysiwyg-localized_{{ cssVersion }}.css': '{{ (rootStylesDirectory ~ '/admin/')|raw }}/wysiwyg-localized.less'
-                    },
-                    options: {
-                        compress: true
-                    }
-                }{% if not loop.last %},{% endif %}
-            {% endfor -%}
         },
 
         postcss: {
