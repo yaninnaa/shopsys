@@ -36,7 +36,7 @@
 
 {% block localized_row -%}
     {% for child in form %}
-        <dl class="form-line {% if not loop.first %}form-line--no-delimiter{% endif %}">
+        <dl class="form-line {% if not loop.first %}form-line--no-top-line{% endif %}">
             {% if label is not sameas(false) %}
                 <dt>
                     {% if loop.first %}
@@ -88,7 +88,7 @@
 
 {% block multidomain_row -%}
     {% for domainId, child in form %}
-        <dl class="form-line {% if not loop.first %}form-line--no-delimiter{% endif %}">
+        <dl class="form-line {% if not loop.first %}form-line--no-top-line{% endif %}">
             {% if label is not sameas(false) %}
                 <dt>
                     {% if loop.first %}
@@ -210,9 +210,6 @@
                 {% if isMultidomain() %}
                     <div class="list-urls__label">
                         {{ domainIcon(domainId) }}
-                        <div class="in-message in-message--neutral">
-                            {{ getDomainName(domainId) }}
-                        </div>
                         {{ form_errors(form.mainFriendlyUrlsByDomainId[domainId]) }}
                     </div>
                 {% endif %}
