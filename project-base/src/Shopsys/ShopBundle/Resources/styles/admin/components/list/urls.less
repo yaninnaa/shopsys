@@ -1,15 +1,20 @@
 @list-urls-gap: 10px;
+@list-urls-image-size: 50px;
+@list-urls-choice-text-width: ~"calc(100% - @{list-urls-image-size})";
 
 .list-urls {
     margin: 0;
     padding: 0;
     width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
 
     &__label {
-        display: flex;
         align-items: center;
-        width: 100%;
+        width: @list-urls-image-size;
         margin-bottom: @list-urls-gap/2;
+        margin-top: @list-urls-gap/2;
 
         > * {
             margin-right: @list-urls-gap;
@@ -17,8 +22,8 @@
     }
 
     &__choice {
-        margin-top: -34px;
+        width: @list-urls-choice-text-width;
+        padding-top: 0;
         margin-bottom: @list-urls-gap/2*3;
-        margin-left: @image-of-domain-or-flag-width + @form-theme-item-gap;
     }
 }
