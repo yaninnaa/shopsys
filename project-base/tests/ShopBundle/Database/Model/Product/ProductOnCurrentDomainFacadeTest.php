@@ -21,7 +21,7 @@ class ProductOnCurrentDomainFacadeTest extends DatabaseTestCase
         $category = $this->getReference(CategoryDataFixture::CATEGORY_TV);
 
         $productFilterData = new ProductFilterData();
-        $productFilterData->minimalPrice = 1000;
+        $productFilterData->minimalPrice = 50;
         $paginationResult = $this->getPaginationResultInCategory($productFilterData, $category);
 
         $this->assertCount(22, $paginationResult->getResults());
@@ -32,7 +32,7 @@ class ProductOnCurrentDomainFacadeTest extends DatabaseTestCase
         $category = $this->getReference(CategoryDataFixture::CATEGORY_TV);
 
         $productFilterData = new ProductFilterData();
-        $productFilterData->maximalPrice = 10000;
+        $productFilterData->maximalPrice = 400;
         $paginationResult = $this->getPaginationResultInCategory($productFilterData, $category);
 
         $this->assertCount(22, $paginationResult->getResults());

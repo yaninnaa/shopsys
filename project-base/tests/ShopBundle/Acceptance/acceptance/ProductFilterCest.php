@@ -17,10 +17,10 @@ class ProductFilterCest
         $me->amOnPage('/tv-audio/');
         $productListPage->assertProductsTotalCount(28);
 
-        $productFilterPage->setMinimalPrice(1000);
+        $productFilterPage->setMinimalPrice(40);
         $productListPage->assertProductsTotalCount(22);
 
-        $productFilterPage->setMaximalPrice(10000);
+        $productFilterPage->setMaximalPrice(400);
         $productListPage->assertProductsTotalCount(16);
 
         $productFilterPage->filterByBrand('LG');
