@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  microservice-product-search
+spec:
+  selector:
+    app: microservice-product-search
+  ports:
+  - name: elasticsearch
+    port: 8000
+    targetPort: 8080
+  type: NodePort

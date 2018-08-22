@@ -1,7 +1,7 @@
 FROM php:7.2-fpm-alpine
 
 # install Composer
-COPY docker-install-composer /usr/local/bin/docker-install-composer
+COPY microservices/product-search/docker/docker-install-composer /usr/local/bin/docker-install-composer
 RUN chmod +x /usr/local/bin/docker-install-composer && docker-install-composer
 
 # install necessary PHP extensions
@@ -15,11 +15,16 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 ENV LC_ALL=en_US.utf8 LANG=en_US.utf8 LANGUAGE=en_US.utf8
 
 # overwrite the original entry-point from the PHP Docker image with our own
-COPY docker-php-entrypoint /usr/local/bin/
+COPY microservices/product-search/docker/docker-php-entrypoint /usr/local/bin/
 
-# allow overwriting UID and GID o the user "www-data" to help solve issues with permissions in mounted volumes
-# if the GID is already in use, we will assign GID 82 instead (82 is the standard uid/gid for "www-data" in Alpine)
-ARG www_data_uid
-ARG www_data_gid
-RUN deluser www-data && (addgroup -g $www_data_gid www-data || addgroup -g 82 www-data) && adduser -u $www_data_uid -D -S -G www-data www-data
-USER www-data
+ADD /microservices/product-search /var/www/html
+
+WORKDIR /var/www/html
+
+ARG composer_github_oauth_token
+
+RUN composer config -g github-oauth.github.com $composer_github_oauth_token
+RUN composer global require hirak/prestissimo
+RUN composer install --optimize-autoloader --no-interaction --no-progress
+
+CMD php bin/console server:run *:8000

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-product-search
+  labels:
+    app: microservice-product-search
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: microservice-product-search
+  template:
+    metadata:
+      labels:
+        app: microservice-product-search
+    spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "microservice-product-search"
+      volumes:
+      - name: product-search-php-configuration
+        configMap:
+          name: product-search-php-configuration
+          items:
+          - key: php-ini-overrides.ini
+            path: php.ini
+      containers:
+      - image: $PHP_FPM_IMAGE
+        name: php
+        volumeMounts:
+        - name: product-search-php-configuration
+          mountPath: /usr/local/etc/php/php.ini
+          subPath: php.ini
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - nginx -s quit
