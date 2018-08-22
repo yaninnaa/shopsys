@@ -25,9 +25,6 @@ spec:
         - "php-fpm"
         - "webserver"
       volumes:
-        - name: sources
-          hostPath:
-            path: /workspace
         - name: nginx-configuration
           configMap:
             name: nginx-configuration
@@ -47,8 +44,6 @@ spec:
           - name: php-configuration
             mountPath: /usr/local/etc/php/php.ini
             subPath: php.ini
-          - name: sources
-            mountPath: /var/www/html
       - image: nginx:1.13.10-alpine
         name: nginx
         ports:
@@ -57,8 +52,6 @@ spec:
         volumeMounts:
           - name: nginx-configuration
             mountPath: /etc/nginx/conf.d
-          - name: sources
-            mountPath: /var/www/html
         lifecycle:
           preStop:
             exec:
