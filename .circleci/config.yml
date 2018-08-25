@@ -25,122 +25,138 @@ jobs:
     - setup_remote_docker
     - checkout
 
-    - run:
-        name: Login to Docker hub
-        command: echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+#    - run:
+#        name: Login to Docker hub
+#        command: echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
 
     - run:
         name: Setup Kubernetes cluster connection
         command: |
           mkdir -p ~/.kube
           echo -e $KUBERNETES_CONFIG_FILE > ~/.kube/config
-    - run:
-        name: Set hostnames into Kubernetes manifests
-        command: |
-          FIRST_DOMAIN_HOSTNAME=$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN
-          SECOND_DOMAIN_HOSTNAME=2.$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN
-
-          yq write --inplace ingress.yml spec.rules[0].host $FIRST_DOMAIN_HOSTNAME
-          yq write --inplace ingress.yml spec.rules[1].host $SECOND_DOMAIN_HOSTNAME
-
-          yq write --inplace deployments/webserver.yml spec.template.spec.hostAliases[0].hostnames[2] $FIRST_DOMAIN_HOSTNAME
-          yq write --inplace deployments/webserver.yml spec.template.spec.hostAliases[0].hostnames[3] $SECOND_DOMAIN_HOSTNAME
-        working_directory: project-base/k8s
-
-    - run:
-        name: Replace docker images in deployment definition
-        command: |
-          yq write --inplace deployments/webserver.yml spec.template.spec.containers[0].image $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1
-          yq write --inplace deployments/microservice-product-search.yml spec.template.spec.containers[0].image $DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1
-        working_directory: project-base/k8s
-
-    - run:
-        name: Create configmap manifests
-        command: |
-          kubectl create configmap nginx-configuration --from-file ../../docker/nginx/nginx.conf --dry-run --output=yaml > nginx-configuration.yml
-          kubectl create configmap php-configuration --from-file ../docker/php-fpm-deployment/php-ini-overrides.ini --dry-run --output=yaml > php-configuration.yml
-        working_directory: project-base/k8s
-
-    - run:
-        name: Setup domain a parameters files
-        command: |
-          cp project-base/app/config/domains_urls.yml.dist project-base/app/config/domains_urls.yml
-          cp project-base/app/config/parameters_test.yml.dist project-base/app/config/parameters_test.yml
-          cp project-base/app/config/parameters.yml.dist project-base/app/config/parameters.yml
-          FIRST_DOMAIN_HOSTNAME=$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN:$NGINX_INGRESS_CONTROLLER_HOST_PORT
-          SECOND_DOMAIN_HOSTNAME=2.$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN:$NGINX_INGRESS_CONTROLLER_HOST_PORT
-          yq write --inplace project-base/app/config/domains_urls.yml domains_urls[0].url http://$FIRST_DOMAIN_HOSTNAME
-          yq write --inplace project-base/app/config/domains_urls.yml domains_urls[1].url http://$SECOND_DOMAIN_HOSTNAME
-
-    - run:
-        name: Build docker image
-        command: |
-          # Calculate Docker image tag from Dockerfile checksum. Docker Image tag is used later in Kubernetes deployment.
-          # On shopsys development server we can assume, that Docker image used by Kubernetes deployment will be always present, because it was builded on same server.
-          # In common we should push this image into Docker registry and use image from registry later.
-          docker image pull $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1 || (docker image build \
-            --build-arg composer_github_oauth_token=$COMPOSER_GITHUB_OATUH_TOKEN \
-            --tag $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1 \
-            --tag $DOCKER_USERNAME/$DOCKER_IMAGE:latest \
-            -f project-base/docker/php-fpm-deployment/Dockerfile . && \
-          # Push image into docker registry
-          docker image push $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1 &&
-          docker image push $DOCKER_USERNAME/$DOCKER_IMAGE:latest)
-
-    -   run:
-          name: Build docker image
-          command: |
-            # Calculate Docker image tag from Dockerfile checksum. Docker Image tag is used later in Kubernetes deployment.
-            # On shopsys development server we can assume, that Docker image used by Kubernetes deployment will be always present, because it was builded on same server.
-            # In common we should push this image into Docker registry and use image from registry later.
-            docker image pull $DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1 || (docker image build \
-              --build-arg composer_github_oauth_token=$COMPOSER_GITHUB_OATUH_TOKEN \
-              --tag $DOCKER_$DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1 \
-              --tag $DOCKER_$DOCKER_USERNAME/microservice-elastic:latest \
-              -f microservices/product-search/docker/Dockerfile . && \
-            # Push image into docker registry
-            docker image push $DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1 &&
-            docker image push $DOCKER_USERNAME/microservice-elastic:latest)
-
-    - run:
-        name: Set SSH credentials
-        command: |
-          echo -e $SERVER_SSL_CERT > ~/cluster_cert
-          chmod 0400 ~/cluster_cert
+#    - run:
+#        name: Set hostnames into Kubernetes manifests
+#        command: |
+#          FIRST_DOMAIN_HOSTNAME=$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN
+#          SECOND_DOMAIN_HOSTNAME=2.$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN
+#
+#          yq write --inplace ingress.yml spec.rules[0].host $FIRST_DOMAIN_HOSTNAME
+#          yq write --inplace ingress.yml spec.rules[1].host $SECOND_DOMAIN_HOSTNAME
+#
+#          yq write --inplace deployments/webserver.yml spec.template.spec.hostAliases[0].hostnames[2] $FIRST_DOMAIN_HOSTNAME
+#          yq write --inplace deployments/webserver.yml spec.template.spec.hostAliases[0].hostnames[3] $SECOND_DOMAIN_HOSTNAME
+#        working_directory: project-base/k8s
+#
+#    - run:
+#        name: Replace docker images in deployment definition
+#        command: |
+#          yq write --inplace deployments/webserver.yml spec.template.spec.containers[0].image $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1
+#          yq write --inplace deployments/microservice-product-search.yml spec.template.spec.containers[0].image $DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1
+#        working_directory: project-base/k8s
+#
+#    - run:
+#        name: Create configmap manifests
+#        command: |
+#          kubectl create configmap nginx-configuration --from-file ../../docker/nginx/nginx.conf --dry-run --output=yaml > nginx-configuration.yml
+#          kubectl create configmap php-configuration --from-file ../docker/php-fpm-deployment/php-ini-overrides.ini --dry-run --output=yaml > php-configuration.yml
+#        working_directory: project-base/k8s
+#
+#    - run:
+#        name: Setup domain a parameters files
+#        command: |
+#          cp project-base/app/config/domains_urls.yml.dist project-base/app/config/domains_urls.yml
+#          cp project-base/app/config/parameters_test.yml.dist project-base/app/config/parameters_test.yml
+#          cp project-base/app/config/parameters.yml.dist project-base/app/config/parameters.yml
+#          FIRST_DOMAIN_HOSTNAME=$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN:$NGINX_INGRESS_CONTROLLER_HOST_PORT
+#          SECOND_DOMAIN_HOSTNAME=2.$CIRCLE_BRANCH-circle.$DEVELOPMENT_SERVER_DOMAIN:$NGINX_INGRESS_CONTROLLER_HOST_PORT
+#          yq write --inplace project-base/app/config/domains_urls.yml domains_urls[0].url http://$FIRST_DOMAIN_HOSTNAME
+#          yq write --inplace project-base/app/config/domains_urls.yml domains_urls[1].url http://$SECOND_DOMAIN_HOSTNAME
+#
+#    - run:
+#        name: Build docker image
+#        command: |
+#          # Calculate Docker image tag from Dockerfile checksum. Docker Image tag is used later in Kubernetes deployment.
+#          # On shopsys development server we can assume, that Docker image used by Kubernetes deployment will be always present, because it was builded on same server.
+#          # In common we should push this image into Docker registry and use image from registry later.
+#          docker image pull $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1 || (docker image build \
+#            --build-arg composer_github_oauth_token=$COMPOSER_GITHUB_OATUH_TOKEN \
+#            --tag $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1 \
+#            --tag $DOCKER_USERNAME/$DOCKER_IMAGE:latest \
+#            -f project-base/docker/php-fpm-deployment/Dockerfile . && \
+#          # Push image into docker registry
+#          docker image push $DOCKER_USERNAME/$DOCKER_IMAGE:$CIRCLE_SHA1 &&
+#          docker image push $DOCKER_USERNAME/$DOCKER_IMAGE:latest)
+#
+#    -   run:
+#          name: Build docker image
+#          command: |
+#            # Calculate Docker image tag from Dockerfile checksum. Docker Image tag is used later in Kubernetes deployment.
+#            # On shopsys development server we can assume, that Docker image used by Kubernetes deployment will be always present, because it was builded on same server.
+#            # In common we should push this image into Docker registry and use image from registry later.
+#            docker image pull $DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1 || (docker image build \
+#              --build-arg composer_github_oauth_token=$COMPOSER_GITHUB_OATUH_TOKEN \
+#              --tag $DOCKER_$DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1 \
+#              --tag $DOCKER_$DOCKER_USERNAME/microservice-elastic:latest \
+#              -f microservices/product-search/docker/Dockerfile . && \
+#            # Push image into docker registry
+#            docker image push $DOCKER_USERNAME/microservice-elastic:$CIRCLE_SHA1 &&
+#            docker image push $DOCKER_USERNAME/microservice-elastic:latest)
+#
+#    - run:
+#        name: Set SSH credentials
+#        command: |
+#          echo -e $SERVER_SSL_CERT > ~/cluster_cert
+#          chmod 0400 ~/cluster_cert
 
     - run:
         name: Deploy application to Kubernetes cluster
         command: |
-          kubectl delete namespace $CIRCLE_BRANCH || true
-          kubectl create namespace $CIRCLE_BRANCH || true
-          kubectl config set-context $(kubectl config current-context) --namespace=$CIRCLE_BRANCH
-          kubectl apply --recursive -f .
+          kubectl delete namespace mc-circle-test-1 || true
+          kubectl delete namespace mc-circle-test-2 || true
+          kubectl delete namespace mc-circle-test-3 || true
+          kubectl delete namespace mc-circle-test-4 || true
+          kubectl delete namespace mc-circle-test-5 || true
+          kubectl delete namespace mc-circle-test-6 || true
+          kubectl delete namespace mc-circle-test-7 || true
+          kubectl delete namespace mc-circle-test-8 || true
+          kubectl delete namespace mc-circle-test-9 || true
+          kubectl delete namespace mc-circle-test-10 || true
+          kubectl delete namespace mc-circle-test-11 || true
+          kubectl delete namespace mc-circle-test-12 || true
+          kubectl delete namespace mc-circle-test-13 || true
+          kubectl delete namespace mc-circle-test-14 || true
+          kubectl delete namespace mc-circle-test-15 || true
+          kubectl delete namespace mc-circle-test-16 || true
+          kubectl delete namespace mc-circle-test-17 || true
+          kubectl delete namespace mc-circle-test-18 || true
+          kubectl delete namespace mc-circle-test-19 || true
+          kubectl delete namespace mc-circle-test-21 || true
         working_directory: project-base/k8s
 
-    - run:
-        name: Wait for rollouts
-        command: |
-          kubectl rollout status deployment/adminer --watch
-          kubectl rollout status deployment/elasticsearch --watch
-          kubectl rollout status deployment/postgres --watch
-          kubectl rollout status deployment/redis --watch
-          kubectl rollout status deployment/redis-admin --watch
-          kubectl rollout status deployment/selenium-server --watch
-          kubectl rollout status deployment/smtp-server --watch
-          kubectl rollout status deployment/webserver --watch
-          kubectl rollout status deployment/microservice-product-search --watch
-    # Storing k8s config and application config as artifacts due to changes done to these files during build process
-    - store_artifacts:
-        path: project-base/k8s
-    - store_artifacts:
-        path: project-base/app/config
-
-    - run:
-        name: Create databases, build application and run tests
-        command: |
-          kubectl get pods
-          PHP_FPM_POD=$(kubectl get pods -l app=webserver -o=jsonpath='{.items[0].metadata.name}')
-          kubectl exec $PHP_FPM_POD -c php ./phing db-create test-db-create build-demo-ci
+#    - run:
+#        name: Wait for rollouts
+#        command: |
+#          kubectl rollout status deployment/adminer --watch
+#          kubectl rollout status deployment/elasticsearch --watch
+#          kubectl rollout status deployment/postgres --watch
+#          kubectl rollout status deployment/redis --watch
+#          kubectl rollout status deployment/redis-admin --watch
+#          kubectl rollout status deployment/selenium-server --watch
+#          kubectl rollout status deployment/smtp-server --watch
+#          kubectl rollout status deployment/webserver --watch
+#          kubectl rollout status deployment/microservice-product-search --watch
+#    # Storing k8s config and application config as artifacts due to changes done to these files during build process
+#    - store_artifacts:
+#        path: project-base/k8s
+#    - store_artifacts:
+#        path: project-base/app/config
+#
+#    - run:
+#        name: Create databases, build application and run tests
+#        command: |
+#          kubectl get pods
+#          PHP_FPM_POD=$(kubectl get pods -l app=webserver -o=jsonpath='{.items[0].metadata.name}')
+#          kubectl exec $PHP_FPM_POD -c php ./phing db-create test-db-create build-demo-ci
 
 workflows:
   version: 2
