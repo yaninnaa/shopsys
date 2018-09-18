@@ -49,6 +49,7 @@ Shopsys Framework is fully functional e-commerce platform with all basic functio
 ## Sites Built on Shopsys Framework
 List of typical projects built on previous versions of Shopsys Framework:
 * [Zoopy](https://www.zoopy.cz/)
+* [Agátin svět](https://www.agatinsvet.cz/)
 * [Prumex](https://www.prumex.cz/)
 * [Elektro Vlášek](https://www.elektrovlasek.cz/)
 * [AB COM CZECH](https://www.ab-com.cz/)
