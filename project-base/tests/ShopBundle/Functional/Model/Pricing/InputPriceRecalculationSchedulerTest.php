@@ -79,7 +79,6 @@ class InputPriceRecalculationSchedulerTest extends TransactionFunctionalTestCase
 
         $templateProduct = $this->getReference(ProductDataFixture::PRODUCT_PREFIX . '1');
         $productData = $productDataFactory->createFromProduct($templateProduct);
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_AUTO;
         $productData->price = $inputPrice;
         $productData->vat = $vat;
 

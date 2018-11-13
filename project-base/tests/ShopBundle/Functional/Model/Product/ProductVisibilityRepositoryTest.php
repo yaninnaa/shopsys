@@ -43,7 +43,6 @@ class ProductVisibilityRepositoryTest extends TransactionFunctionalTestCase
         $productData = $productDataFactory->create();
         $productData->name = ['cs' => 'Name', 'en' => 'Name'];
         $productData->vat = $vat;
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_MANUAL;
         $productData->categoriesByDomainId = [1 => [$category]];
         $productData->availability = $this->getReference(AvailabilityDataFixture::AVAILABILITY_IN_STOCK);
         $productData->unit = $this->getReference(UnitDataFixture::UNIT_PIECES);
@@ -408,7 +407,6 @@ class ProductVisibilityRepositoryTest extends TransactionFunctionalTestCase
         $pricingGroupFacade = $this->getContainer()->get(PricingGroupFacade::class);
 
         $productData = $this->getDefaultProductData();
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_MANUAL;
 
         $allPricingGroups = $pricingGroupFacade->getAll();
         foreach ($allPricingGroups as $pricingGroup) {
@@ -451,7 +449,6 @@ class ProductVisibilityRepositoryTest extends TransactionFunctionalTestCase
         $pricingGroupFacade = $this->getContainer()->get(PricingGroupFacade::class);
 
         $productData = $this->getDefaultProductData();
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_MANUAL;
 
         $allPricingGroups = $pricingGroupFacade->getAll();
         foreach ($allPricingGroups as $pricingGroup) {

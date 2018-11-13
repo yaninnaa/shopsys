@@ -25,7 +25,6 @@ class ProductInputPriceServiceTest extends TestCase
         $vatData->name = 'VatName';
         $vatData->percent = '10.0';
         $productData->vat = new Vat($vatData);
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_MANUAL;
         $product = Product::create($productData);
 
         $pricingGroupMock1 = $this->getMockBuilder(PricingGroup::class)
@@ -74,7 +73,6 @@ class ProductInputPriceServiceTest extends TestCase
         $vatData->name = 'VatName';
         $vatData->percent = '10.0';
         $productData->vat = new Vat($vatData);
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_AUTO;
         $product = Product::create($productData);
 
         $pricingGroupMock1 = $this->getMockBuilder(PricingGroup::class)
@@ -131,7 +129,6 @@ class ProductInputPriceServiceTest extends TestCase
         $vatData->name = 'VatName';
         $vatData->percent = '10.0';
         $productData->vat = new Vat($vatData);
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_MANUAL;
         $product = Product::create($productData);
 
         $pricingGroupMock1 = $this->getMockBuilder(PricingGroup::class)
@@ -178,35 +175,4 @@ class ProductInputPriceServiceTest extends TestCase
         $this->assertSame('2000', (string)$inputPrice);
     }
 
-    public function testGetInputPriceWithAutoCalculationType()
-    {
-        $productData = new ProductData();
-        $vatData = new VatData();
-        $vatData->name = 'VatName';
-        $vatData->percent = '10.0';
-        $productData->vat = new Vat($vatData);
-        $productData->priceCalculationType = Product::PRICE_CALCULATION_TYPE_AUTO;
-        $productData->price = '1000';
-        $product = Product::create($productData);
-
-        $inputPriceCalculation = new InputPriceCalculation();
-        $productPriceCalculationMock = $this->getMockBuilder(ProductPriceCalculation::class)
-            ->setMethods(['calculatePrice'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $productPriceCalculationMock->expects($this->never())->method('calculatePrice');
-
-        $inputPriceType = PricingSetting::INPUT_PRICE_TYPE_WITHOUT_VAT;
-
-        $manualInputPrices = [];
-
-        $productInputPriceService = new ProductInputPriceService($inputPriceCalculation, $productPriceCalculationMock);
-        $inputPrice = $productInputPriceService->getInputPrice(
-            $product,
-            $inputPriceType,
-            $manualInputPrices
-        );
-
-        $this->assertSame('1000', (string)$inputPrice);
-    }
 }
