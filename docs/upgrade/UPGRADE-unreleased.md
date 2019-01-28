@@ -45,6 +45,17 @@ There you can find links to upgrade notes for other versions too.
         - change `ExtendedOrderItem` to standard class - remove `abstract` and inheritance annotations
         - change `doTestExtendedOrderItemsPersistence` to test only `OrderItem`
         - please find inspiration in [#715](https://github.com/shopsys/shopsys/pull/715/files)
+ - *(optional)* if you want to show availability of variants add these lines to `.table-variants` in `Product/detail.html.twig` [#771](https://github.com/shopsys/shopsys/pull/771)
+    ```
+        <th class="table-variants__cell">{{ 'Availability'|trans }}</th>
+    ```
+    ```
+       <td class="table-variants__cell">
+           {% if variant.calculatedAvailability %}
+               {{ variant.calculatedAvailability.name }}
+           {% endif %}
+       </td>
+    ```
 
 [Upgrade from v7.0.0-beta5 to Unreleased]: https://github.com/shopsys/shopsys/compare/v7.0.0-beta5...HEAD
 [shopsys/shopsys]: https://github.com/shopsys/shopsys
