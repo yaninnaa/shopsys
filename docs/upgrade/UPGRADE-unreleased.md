@@ -10,6 +10,8 @@ There you can find links to upgrade notes for other versions too.
 - *(low priority)* to add support of functional tests of Redis ([#846](https://github.com/shopsys/shopsys/pull/846))
     - download [`snc_redis.yml`](https://github.com/shopsys/project-base/blob/master/app/config/packages/test/snc_redis.yml) to `app/config/packages/test/snc_redis.yml`
     - download [`RedisFacadeTest.php`](https://github.com/shopsys/project-base/tree/master/tests/ShopBundle/Functional/Component/Redis/RedisFacadeTest.php) to your tests directory `tests/ShopBundle/Functional/Component/Redis/`
+- to be more descriptive about error caused by active TEST environment ([#701](https://github.com/shopsys/shopsys/pull/701))
+    - modify `ErrorController::createUnableToResolveDomainResponse()` by these [changes](https://github.com/shopsys/shopsys/pull/701/files#diff-0b1aecbf82624ce474ca3cb8bd75811c).
 - *(low-priority)* by changes realized in [#808 redesign print page of product detail page](https://github.com/shopsys/shopsys/pull/808) was created new folder `print` in `src/Shopsys/ShopBundle/Resources/styles/front/common`. In the pull request were realized changes for styling print page of initial Shopsys Framework configuration. In order to apply changes in your project there is need to do following steps.
     - copy whole `print` folders from `src/Shopsys/ShopBundle/Resources/styles/front/common/print` and `src/Shopsys/ShopBundle/Resources/styles/front/domain2/print` of [shopsys/project-base](https://github.com/shopsys/project-base/)
     - add `dont-print` class to HTML elements which you want to hide. You can inspire by [changes](https://github.com/shopsys/shopsys/pull/808/files) realized in [pull request](https://github.com/shopsys/shopsys/pull/808).
