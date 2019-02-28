@@ -11,7 +11,7 @@ That means that you can normally use your IDE to edit the code while it is runni
 
 ## Supported systems
 - [Linux](installation-using-docker-linux.md)
-- [MacOS](installation-using-docker-macos.md)
+- [MacOS](installation-using-docker-macos.md) (Installation is quick indeed. During the development, it is necessary to allocate 1 hour every day to solve the problem with docker-sync)
 - [Windows 10 Pro and higher](installation-using-docker-windows-10-pro-higher.md)
 
 ## Other systems
