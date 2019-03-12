@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: shopsys
+spec:
+    rules:
+    -   host: ~
+        http:
+            paths:
+            -   path: /
+                backend:
+                    serviceName: adminer
+                    servicePort: 80
+    -   host: ~
+        http:
+            paths:
+            -   path: /
+                backend:
+                    serviceName: elasticsearch
+                    servicePort: 9200
+    -   host: ~
+        http:
+            paths:
+            -   path: /
+                backend:
+                    serviceName: redis-admin
+                    servicePort: 80
