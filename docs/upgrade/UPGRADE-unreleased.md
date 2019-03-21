@@ -167,6 +167,8 @@ There you can find links to upgrade notes for other versions too.
 - We disallow using [Doctrine inheritance mapping](https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/inheritance-mapping.html) in the Shopsys Framework
   because it causes problems during entity extension. Such problem with `OrderItem` was resolved during [making OrderItem extendable #715](https://github.com/shopsys/shopsys/pull/715)  
   If you want to use Doctrine inheritance mapping anyway, please skip `Shopsys\CodingStandards\Sniffs\ForbiddenDoctrineInheritanceSniff` ([#848](https://github.com/shopsys/shopsys/pull/848))
+- We require to have visibility specified for constants ([#904](https://github.com/shopsys/shopsys/pull/904))
+  You can skip `Shopsys\CodingStandards\Sniffs\ConstantVisibilityRequiredSniff`, if it is not suits you
 
 [Upgrade from v7.0.0 to Unreleased]: https://github.com/shopsys/shopsys/compare/v7.0.0...HEAD
 [shopsys/framework]: https://github.com/shopsys/framework

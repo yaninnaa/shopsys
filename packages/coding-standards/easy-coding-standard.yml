@@ -22,6 +22,7 @@ services:
     Shopsys\CodingStandards\CsFixer\OrmJoinColumnRequireNullableFixer: ~
     Shopsys\CodingStandards\CsFixer\RedundantMarkDownTrailingSpacesFixer: ~
     Shopsys\CodingStandards\Finder\FileFinder: ~
+    Shopsys\CodingStandards\Sniffs\ConstantVisibilityRequiredSniff: ~
     Shopsys\CodingStandards\Sniffs\ObjectIsCreatedByFactorySniff: ~
     Shopsys\CodingStandards\Sniffs\ForbiddenDumpSniff: ~
     Shopsys\CodingStandards\Sniffs\ForbiddenExitSniff: ~
