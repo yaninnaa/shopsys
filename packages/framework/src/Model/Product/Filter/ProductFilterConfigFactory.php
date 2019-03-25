@@ -79,15 +79,15 @@ class ProductFilterConfigFactory
      * @param string|null $searchText
      * @return \Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterConfig
      */
-    public function createForSearch($domainId, $locale, $searchText)
+    public function createForSearch($domainId, $locale, $searchText, $productFilterData)
     {
         $parameterFilterChoices = [];
         $pricingGroup = $this->currentCustomer->getPricingGroup();
         $flagFilterChoices = $this->flagFilterChoiceRepository
-            ->getFlagFilterChoicesForSearch($domainId, $pricingGroup, $locale, $searchText);
+            ->getFlagFilterChoicesForSearch($domainId, $pricingGroup, $locale, $searchText, $productFilterData);
         $brandFilterChoices = $this->brandFilterChoiceRepository
-            ->getBrandFilterChoicesForSearch($domainId, $pricingGroup, $locale, $searchText);
-        $priceRange = $this->priceRangeRepository->getPriceRangeForSearch($domainId, $pricingGroup, $locale, $searchText);
+            ->getBrandFilterChoicesForSearch($domainId, $pricingGroup, $locale, $searchText, $productFilterData);
+        $priceRange = $this->priceRangeRepository->getPriceRangeForSearch($domainId, $pricingGroup, $locale, $searchText, $productFilterData);
 
         return new ProductFilterConfig($parameterFilterChoices, $flagFilterChoices, $brandFilterChoices, $priceRange);
     }

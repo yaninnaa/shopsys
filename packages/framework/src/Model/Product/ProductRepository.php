@@ -245,14 +245,15 @@ class ProductRepository
         $domainId,
         PricingGroup $pricingGroup,
         $locale,
-        $searchText
+        $searchText,
+        $productFilterData
     ) {
         $queryBuilder = $this->getAllListableQueryBuilder($domainId, $pricingGroup);
 
         $this->addTranslation($queryBuilder, $locale);
         $this->addDomain($queryBuilder, $domainId);
 
-        $this->productElasticsearchRepository->filterBySearchText($queryBuilder, $searchText);
+        $this->productElasticsearchRepository->filterBySearchText($queryBuilder, $searchText, $productFilterData);
 
         return $queryBuilder;
     }
@@ -364,6 +365,8 @@ class ProductRepository
         ProductFilterData $productFilterData,
         PricingGroup $pricingGroup
     ) {
+
+        d($this->productElasticsearchRepository->getProductIdsBySearchText($domainId, 'test', $productFilterData));
         $queryBuilder = $this->getListableInCategoryQueryBuilder(
             $domainId,
             $pricingGroup,
@@ -410,7 +413,7 @@ class ProductRepository
             $pricingGroup
         );
 
-        $this->productElasticsearchRepository->addRelevance($queryBuilder, $searchText);
+        $this->productElasticsearchRepository->addRelevance($queryBuilder, $searchText, $productFilterData);
         $this->applyOrdering($queryBuilder, $orderingModeId, $pricingGroup, $locale);
 
         $queryPaginator = new QueryPaginator($queryBuilder);
@@ -437,7 +440,8 @@ class ProductRepository
             $domainId,
             $pricingGroup,
             $locale,
-            $searchText
+            $searchText,
+            $productFilterData
         );
 
         $this->productFilterRepository->applyFiltering(

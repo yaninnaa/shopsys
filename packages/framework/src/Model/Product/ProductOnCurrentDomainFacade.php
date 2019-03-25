@@ -263,7 +263,8 @@ class ProductOnCurrentDomainFacade
             $this->domain->getId(),
             $this->currentCustomer->getPricingGroup(),
             $this->domain->getLocale(),
-            $searchText
+            $searchText,
+            $productFilterData
         );
 
         return $this->productFilterCountRepository->getProductFilterCountData(

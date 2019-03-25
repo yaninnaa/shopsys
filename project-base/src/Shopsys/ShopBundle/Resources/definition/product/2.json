@@ -147,6 +147,42 @@
         "description": {
           "type": "text",
           "analyzer": "edge_ngram_without_diacritic_html"
+        },
+        "flags": {
+          "type": "nested",
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        },
+        "brand_id": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "nested",
+          "properties": {
+            "pricing_group_id": {
+              "type": "integer"
+            },
+            "cost": {
+              "type": "float"
+            }
+          }
+        },
+        "in_stock": {
+          "type": "boolean"
+        },
+        "parameters": {
+          "type": "nested",
+          "properties": {
+            "parameter_id": {
+              "type": "integer"
+            },
+            "parameter_value_id": {
+              "type": "integer"
+            }
+          }
         }
       }
     }

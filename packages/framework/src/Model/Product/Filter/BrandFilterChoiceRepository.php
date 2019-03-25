@@ -48,10 +48,10 @@ class BrandFilterChoiceRepository
      * @param string|null $searchText
      * @return \Shopsys\FrameworkBundle\Model\Product\Brand\Brand[]
      */
-    public function getBrandFilterChoicesForSearch($domainId, PricingGroup $pricingGroup, $locale, $searchText)
+    public function getBrandFilterChoicesForSearch($domainId, PricingGroup $pricingGroup, $locale, $searchText, $productFilterData)
     {
         $productsQueryBuilder = $this->productRepository
-            ->getListableBySearchTextQueryBuilder($domainId, $pricingGroup, $locale, $searchText);
+            ->getListableBySearchTextQueryBuilder($domainId, $pricingGroup, $locale, $searchText, $productFilterData);
 
         return $this->getBrandsByProductsQueryBuilder($productsQueryBuilder);
     }

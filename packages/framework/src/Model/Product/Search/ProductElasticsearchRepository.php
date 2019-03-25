@@ -5,6 +5,8 @@ namespace Shopsys\FrameworkBundle\Model\Product\Search;
 use Doctrine\ORM\QueryBuilder;
 use Elasticsearch\Client;
 use Shopsys\FrameworkBundle\Component\Elasticsearch\ElasticsearchStructureManager;
+use Shopsys\FrameworkBundle\Model\Customer\CurrentCustomer;
+use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterData;
 
 class ProductElasticsearchRepository
 {
@@ -34,6 +36,10 @@ class ProductElasticsearchRepository
      * @var \Shopsys\FrameworkBundle\Component\Elasticsearch\ElasticsearchStructureManager
      */
     protected $elasticsearchStructureManager;
+    /**
+     * @var CurrentCustomer
+     */
+    private $currentCustomer;
 
     /**
      * @param string $indexPrefix
@@ -45,21 +51,23 @@ class ProductElasticsearchRepository
         string $indexPrefix,
         Client $client,
         ProductElasticsearchConverter $productElasticsearchConverter,
-        ElasticsearchStructureManager $elasticsearchStructureManager
+        ElasticsearchStructureManager $elasticsearchStructureManager,
+        CurrentCustomer $currentCustomer
     ) {
         $this->indexPrefix = $indexPrefix;
         $this->client = $client;
         $this->productElasticsearchConverter = $productElasticsearchConverter;
         $this->elasticsearchStructureManager = $elasticsearchStructureManager;
+        $this->currentCustomer = $currentCustomer;
     }
 
     /**
      * @param \Doctrine\ORM\QueryBuilder $productQueryBuilder
      * @param string|null $searchText
      */
-    public function filterBySearchText(QueryBuilder $productQueryBuilder, $searchText)
+    public function filterBySearchText(QueryBuilder $productQueryBuilder, $searchText, $productFilterData)
     {
-        $productIds = $this->getFoundProductIds($productQueryBuilder, $searchText);
+        $productIds = $this->getFoundProductIds($productQueryBuilder, $searchText, $productFilterData);
 
         if (count($productIds) > 0) {
             $productQueryBuilder->andWhere('p.id IN (:productIds)')->setParameter('productIds', $productIds);
@@ -72,9 +80,9 @@ class ProductElasticsearchRepository
      * @param \Doctrine\ORM\QueryBuilder $productQueryBuilder
      * @param string|null $searchText
      */
-    public function addRelevance(QueryBuilder $productQueryBuilder, $searchText)
+    public function addRelevance(QueryBuilder $productQueryBuilder, $searchText, $productFilterData)
     {
-        $productIds = $this->getFoundProductIds($productQueryBuilder, $searchText);
+        $productIds = $this->getFoundProductIds($productQueryBuilder, $searchText, $productFilterData);
 
         if (count($productIds)) {
             $productQueryBuilder->addSelect('field(p.id, ' . implode(',', $productIds) . ') AS HIDDEN relevance');
@@ -88,16 +96,16 @@ class ProductElasticsearchRepository
      * @param $searchText
      * @return int[]
      */
-    protected function getFoundProductIds(QueryBuilder $productQueryBuilder, $searchText)
+    protected function getFoundProductIds(QueryBuilder $productQueryBuilder, $searchText, $productFilterData)
     {
         $domainId = $productQueryBuilder->getParameter('domainId')->getValue();
 
         if (!isset($this->foundProductIdsCache[$domainId][$searchText])) {
-            $foundProductIds = $this->getProductIdsBySearchText($domainId, $searchText);
+            $foundProductIds = $this->getProductIdsBySearchText($domainId, $searchText, $productFilterData);
 
             $this->foundProductIdsCache[$domainId][$searchText] = $foundProductIds;
         }
-
+        d($this->foundProductIdsCache[$domainId][$searchText]);
         return $this->foundProductIdsCache[$domainId][$searchText];
     }
 
@@ -115,13 +123,14 @@ class ProductElasticsearchRepository
      * @param string|null $searchText
      * @return int[]
      */
-    public function getProductIdsBySearchText(int $domainId, ?string $searchText): array
+    public function getProductIdsBySearchText(int $domainId, ?string $searchText, $productFilterData): array
     {
         if (!$searchText) {
             return [];
         }
-        $parameters = $this->createQuery($this->getIndexName($domainId), $searchText);
+        $parameters = $this->createQuery($this->getIndexName($domainId), $searchText, $productFilterData);
         $result = $this->client->search($parameters);
+        d($result);
         return $this->extractIds($result);
     }
 
@@ -131,36 +140,109 @@ class ProductElasticsearchRepository
      * @param string $searchText
      * @return array
      */
-    protected function createQuery(string $indexName, string $searchText): array
+    protected function createQuery(string $indexName, string $searchText, ProductFilterData $productFilterData): array
     {
-        return [
+        $brandIds = [];
+        foreach ($productFilterData->brands as $brand) {
+            $brandIds[] = $brand->getId();
+        }
+
+        $flagIds = [];
+
+        foreach ($productFilterData->flags as $flag) {
+            $flagIds[] = $flag->getId();
+        }
+
+        $parameters = [];
+
+        foreach ($productFilterData->parameters as $parameterFilterData) {
+            $parameterValueIds = [];
+            foreach ($parameterFilterData->values as $parameterValue) {
+                $parameterValueIds[] = $parameterValue->getId();
+            }
+            if (count($parameterValueIds) !== 0) {
+                $parameters[] = ['nested' => [
+                    'path' => 'parameters',
+                    'query' => [
+                        'bool' => [
+                            'must' => [
+                                'match_all' => new \stdClass()
+                            ],
+                            'filter' => [
+                                ['term' => [
+                                    'parameters.parameter_id' => $parameterFilterData->parameter->getId(),
+                                ]],
+                                ['terms' => [
+                                    'parameters.parameter_value_id' => $parameterValueIds,
+                                ]],
+                            ],
+                        ],
+                    ],
+                ]];
+            }
+        }
+
+
+
+        $query = [
             'index' => $indexName,
             'type' => '_doc',
             'size' => 1000,
             'body' => [
-                '_source' => false,
                 'query' => [
-                    'multi_match' => [
-                        'query' => $searchText,
-                        'fields' => [
-                            'name.full_with_diacritic^60',
-                            'name.full_without_diacritic^50',
-                            'name^45',
-                            'name.edge_ngram_with_diacritic^40',
-                            'name.edge_ngram_without_diacritic^35',
-                            'catnum^50',
-                            'catnum.edge_ngram^25',
-                            'partno^40',
-                            'partno.edge_ngram^20',
-                            'ean^60',
-                            'ean.edge_ngram^30',
-                            'short_description^5',
-                            'description^5',
+                    'bool' => [
+                        'must' => [
+                            'match_all' => new \stdClass()
                         ],
-                    ],
+                        'filter' => [
+                            ['nested' => [
+                                'path' => 'price',
+                                'query' => [
+                                    'bool' => [
+                                        'must' => [
+                                            'match_all' => new \stdClass()
+                                        ],
+                                        'filter' => [
+                                            'range' => [
+                                                'price.cost' => [
+                                                    'gte' => $productFilterData->minimalPrice === null ? 0 : floatval($productFilterData->minimalPrice->getAmount()),
+                                                    'lte' => $productFilterData->maximalPrice === null ? 0 : floatval($productFilterData->maximalPrice->getAmount()),
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ]],
+                            ['nested' => [
+                                'path' => 'flags',
+                                'query' => [
+                                    'bool' => [
+                                        'must' => [
+                                            'match_all' => new \stdClass()
+                                        ],
+                                        'filter' => [
+                                            'terms' => [
+                                                'flags.id' => $flagIds,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ]],
+                            $parameters,
+                            ['term' => [
+                                'in_stock' => $productFilterData->inStock
+                            ]],
+                            ['terms' => [
+                                'brand_id' => $brandIds
+                            ]],
+                        ],
+                    ]
                 ],
             ],
         ];
+        d($query);
+        d(json_encode($query));
+        return $query;
     }
 
     /**

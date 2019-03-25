@@ -249,7 +249,7 @@ class ProductController extends FrontBaseController
 
         $productFilterData = new ProductFilterData();
 
-        $productFilterConfig = $this->createProductFilterConfigForSearch($searchText);
+        $productFilterConfig = $this->createProductFilterConfigForSearch($searchText, $productFilterData);
         $filterForm = $this->createForm(ProductFilterFormType::class, $productFilterData, [
             'product_filter_config' => $productFilterConfig,
         ]);
@@ -307,12 +307,13 @@ class ProductController extends FrontBaseController
      * @param string|null $searchText
      * @return \Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterConfig
      */
-    private function createProductFilterConfigForSearch($searchText)
+    private function createProductFilterConfigForSearch($searchText, $productFilterData)
     {
         return $this->productFilterConfigFactory->createForSearch(
             $this->domain->getId(),
             $this->domain->getLocale(),
-            $searchText
+            $searchText,
+            $productFilterData
         );
     }
 
