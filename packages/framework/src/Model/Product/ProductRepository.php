@@ -306,7 +306,8 @@ class ProductRepository
             $domainId,
             $locale,
             $productFilterData,
-            $pricingGroup
+            $pricingGroup,
+            $orderingModeId
         );
 
         $this->applyOrdering($queryBuilder, $orderingModeId, $pricingGroup, $locale);
@@ -363,10 +364,11 @@ class ProductRepository
         $domainId,
         $locale,
         ProductFilterData $productFilterData,
-        PricingGroup $pricingGroup
+        PricingGroup $pricingGroup,
+        $orderingModeId
     ) {
 
-        d($this->productElasticsearchRepository->getProductIdsBySearchText($domainId, 'test', $productFilterData));
+        d($this->productElasticsearchRepository->getProductIdsBySearchText($domainId, 'test', $productFilterData, $orderingModeId));
         $queryBuilder = $this->getListableInCategoryQueryBuilder(
             $domainId,
             $pricingGroup,

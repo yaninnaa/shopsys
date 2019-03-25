@@ -19,7 +19,7 @@ class ProductCalculatedPrice
      * @var \Shopsys\FrameworkBundle\Model\Product\Product
      *
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Shopsys\FrameworkBundle\Model\Product\Product")
+     * @ORM\ManyToOne(targetEntity="Shopsys\FrameworkBundle\Model\Product\Product", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false, name="product_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $product;
@@ -74,5 +74,9 @@ class ProductCalculatedPrice
     public function setPriceWithVat(?Money $priceWithVat): void
     {
         $this->priceWithVat = $priceWithVat;
+    }
+
+    public function getPriceWithVat() {
+        return $this->priceWithVat;
     }
 }

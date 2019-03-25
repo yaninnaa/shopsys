@@ -7,6 +7,7 @@ use Elasticsearch\Client;
 use Shopsys\FrameworkBundle\Component\Elasticsearch\ElasticsearchStructureManager;
 use Shopsys\FrameworkBundle\Model\Customer\CurrentCustomer;
 use Shopsys\FrameworkBundle\Model\Product\Filter\ProductFilterData;
+use Shopsys\FrameworkBundle\Model\Product\Listing\ProductListOrderingConfig;
 
 class ProductElasticsearchRepository
 {
@@ -101,7 +102,7 @@ class ProductElasticsearchRepository
         $domainId = $productQueryBuilder->getParameter('domainId')->getValue();
 
         if (!isset($this->foundProductIdsCache[$domainId][$searchText])) {
-            $foundProductIds = $this->getProductIdsBySearchText($domainId, $searchText, $productFilterData);
+            $foundProductIds = $this->getProductIdsBySearchText($domainId, $searchText, $productFilterData, ProductListOrderingConfig::ORDER_BY_NAME_ASC);
 
             $this->foundProductIdsCache[$domainId][$searchText] = $foundProductIds;
         }
@@ -123,12 +124,12 @@ class ProductElasticsearchRepository
      * @param string|null $searchText
      * @return int[]
      */
-    public function getProductIdsBySearchText(int $domainId, ?string $searchText, $productFilterData): array
+    public function getProductIdsBySearchText(int $domainId, ?string $searchText, $productFilterData, $orderingModeId): array
     {
         if (!$searchText) {
             return [];
         }
-        $parameters = $this->createQuery($this->getIndexName($domainId), $searchText, $productFilterData);
+        $parameters = $this->createQuery($this->getIndexName($domainId), $searchText, $productFilterData, $orderingModeId);
         $result = $this->client->search($parameters);
         d($result);
         return $this->extractIds($result);
@@ -140,7 +141,7 @@ class ProductElasticsearchRepository
      * @param string $searchText
      * @return array
      */
-    protected function createQuery(string $indexName, string $searchText, ProductFilterData $productFilterData): array
+    protected function createQuery(string $indexName, string $searchText, ProductFilterData $productFilterData, $orderingModeId): array
     {
         $brandIds = [];
         foreach ($productFilterData->brands as $brand) {
@@ -181,6 +182,56 @@ class ProductElasticsearchRepository
                 ]];
             }
         }
+        if (count($parameters) === 0) {
+            $parameters = '';
+        }
+
+
+        $sort = [];
+        if ($orderingModeId === ProductListOrderingConfig::ORDER_BY_NAME_ASC) {
+            $sort = [
+                'name.keyword' => 'asc'
+            ];
+        } elseif ($orderingModeId === ProductListOrderingConfig::ORDER_BY_NAME_DESC) {
+            $sort = [
+                'name.keyword' => 'desc'
+            ];
+        } elseif ($orderingModeId === ProductListOrderingConfig::ORDER_BY_PRICE_ASC) {
+            $sort = [
+                'price.cost' => [
+                    'order' => 'asc',
+                    'nested' => [
+                        'path' => 'price',
+                        'filter' => [
+                            'range' => [
+                                'price.cost' => [
+                                    'gte' => $productFilterData->minimalPrice === null ? 0 : floatval($productFilterData->minimalPrice->getAmount()),
+                                    'lte' => $productFilterData->maximalPrice === null ? 0 : floatval($productFilterData->maximalPrice->getAmount()),
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ];
+        } elseif ($orderingModeId === ProductListOrderingConfig::ORDER_BY_PRICE_DESC) {
+            $sort = [
+                'price.cost' => [
+                    'order' => 'desc',
+                    'nested' => [
+                        'path' => 'price',
+                        'filter' => [
+                            'range' => [
+                                'price.cost' => [
+                                    'gte' => $productFilterData->minimalPrice === null ? 0 : floatval($productFilterData->minimalPrice->getAmount()),
+                                    'lte' => $productFilterData->maximalPrice === null ? 0 : floatval($productFilterData->maximalPrice->getAmount()),
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ];
+        }
+
 
 
 
@@ -189,6 +240,7 @@ class ProductElasticsearchRepository
             'type' => '_doc',
             'size' => 1000,
             'body' => [
+                'sort' => $sort,
                 'query' => [
                     'bool' => [
                         'must' => [

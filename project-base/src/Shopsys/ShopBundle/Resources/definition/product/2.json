@@ -104,6 +104,9 @@
             "edge_ngram_without_diacritic": {
               "type": "text",
               "analyzer": "edge_ngram_without_diacritic"
+            },
+            "keyword": {
+              "type": "keyword"
             }
           }
         },
