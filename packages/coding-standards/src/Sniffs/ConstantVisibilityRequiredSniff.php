@@ -82,7 +82,10 @@ class ConstantVisibilityRequiredSniff implements Sniff
     {
         $phpDocStartPosition = $file->findPrevious(\T_DOC_COMMENT_OPEN_TAG, $constPosition, $previousTokenEndPosition ?: 0);
 
-        return $phpDocStartPosition !== false && $this->phpDocContainsAccessTag($file, $phpDocStartPosition);
+        if ($phpDocStartPosition === false) {
+            return false;
+        }
+        return $this->phpDocContainsAccessTag($file, $phpDocStartPosition);
     }
 
     /**
