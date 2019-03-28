@@ -1,6 +1,6 @@
 <?php
 
-class SingleValueAfterMethodWithoutNamespaceWrong
+class SingleValueAfterMethodWithoutNamespace
 {
     public function method()
     {

@@ -10,23 +10,24 @@ final class ConstantVisibilityRequiredSniffTest extends AbstractCheckerTestCase
 {
     public function testCorrect(): void
     {
-        $this->doTestCorrectFile(__DIR__ . '/Correct/Annotation.php');
-        $this->doTestCorrectFile(__DIR__ . '/Correct/SingleValueWithoutNamespace.php');
-        $this->doTestCorrectFile(__DIR__ . '/Correct/SingleValueAfterMethodWithoutNamespace.php');
-        $this->doTestCorrectFile(__DIR__ . '/Correct/MultipleValues.php');
-        $this->doTestCorrectFile(__DIR__ . '/Correct/Mixed.php');
-        $this->doTestCorrectFile(__DIR__ . '/Correct/noClass.php');
-        $this->doTestCorrectFile(__DIR__ . '/Correct/OutsideClass.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/Annotation.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/SingleValueWithoutNamespace.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/SingleValueAfterMethodWithoutNamespace.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/MultipleValues.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/Mixed.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/MixedVisibilities.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/noClass.php');
+        $this->doTestCorrectFile(__DIR__ . '/correct/OutsideClass.php');
     }
 
     public function testWrong(): void
     {
-        $this->doTestWrongFile(__DIR__ . '/Wrong/SingleValue.php');
-        $this->doTestWrongFile(__DIR__ . '/Wrong/MissingAnnotation.php');
-        $this->doTestWrongFile(__DIR__ . '/Wrong/Mixed.php');
-        $this->doTestWrongFile(__DIR__ . '/Wrong/MixedAtTheEnd.php');
-        $this->doTestWrongFile(__DIR__ . '/Wrong/MixedInTheMiddle.php');
-        $this->doTestWrongFile(__DIR__ . '/Wrong/SingleValueAfterMethodWithoutNamespaceWrong.php');
+        $this->doTestWrongFile(__DIR__ . '/wrong/SingleValue.php');
+        $this->doTestWrongFile(__DIR__ . '/wrong/MissingAnnotation.php');
+        $this->doTestWrongFile(__DIR__ . '/wrong/Mixed.php');
+        $this->doTestWrongFile(__DIR__ . '/wrong/MixedAtTheEnd.php');
+        $this->doTestWrongFile(__DIR__ . '/wrong/MixedInTheMiddle.php');
+        $this->doTestWrongFile(__DIR__ . '/wrong/SingleValueAfterMethodWithoutNamespace.php');
     }
 
     /**
