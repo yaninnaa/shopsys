@@ -10,7 +10,8 @@ final class ForceLateStaticBindingForProtectedConstantsSniffTest extends Abstrac
 {
     public function testFix(): void
     {
-        $this->doTestWrongToFixedFile(__DIR__ . '/Wrong/SingleValue.php', __DIR__ . '/Fixed/SingleValue.php');
+        $this->doTestWrongToFixedFile(__DIR__ . '/wrong/SingleValue.php', __DIR__ . '/fixed/SingleValue.php');
+        $this->doTestWrongToFixedFile(__DIR__ . '/wrong/SelfWithMethods.php', __DIR__ . '/fixed/SelfWithMethods.php');
     }
 
     /**
