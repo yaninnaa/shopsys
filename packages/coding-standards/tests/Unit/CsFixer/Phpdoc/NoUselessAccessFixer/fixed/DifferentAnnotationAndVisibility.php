@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\CodingStandards\Unit\CsFixer\Phpdoc\NoUselessAccessFixer;
 
-class Simple
+class DifferentAnnotationAndVisibility
 {
-    /**
-     * @access public
-     */
+    
     public const A = 'value';
-    /** @access protected */
-    protected const B = 'value';
+    
+    private const B = 'value';
+    
+    protected const C = 'value';
 }
