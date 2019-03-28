@@ -57,29 +57,129 @@ class Foo
      */
     public function fix(\SplFileInfo $file, Tokens $tokens): void
     {
-        foreach ($tokens->findGivenKind(\T_DOC_COMMENT) as $index => $token) {
-            $docBlock = new DocBlock($token->getContent());
+        $allDocBlocks = $this->findAllDocBlocks($tokens);
 
-            $annotations = $docBlock->getAnnotationsOfType('access');
-
-            if (empty($annotations)) {
+        foreach ($allDocBlocks as $position => $docBlock) {
+            if (!$this->areThereAnyAccessAnnotation($docBlock)) {
                 continue;
             }
 
-            $nextMeaningfulTokenId = $tokens[$tokens->getNextMeaningfulToken($index)]->getId();
+            if ($this->followingTokenIsAccessModifier($tokens, $position)) {
+                $this->removeAllAccessAnnotations($docBlock);
+                $this->rewriteDocBlock($tokens, $docBlock, $position);
+            }
 
-            if (\in_array($nextMeaningfulTokenId, self::ACCESS_TOKENS, true)) {
-                foreach ($annotations as $annotation) {
-                    $annotation->remove();
-                }
-
-                if ($docBlock->getContent() === '' || $this->isDocBlockEmpty($docBlock)) {
-                    $tokens->clearTokenAndMergeSurroundingWhitespace($index);
-                } else {
-                    $tokens[$index] = new Token([T_DOC_COMMENT, $docBlock->getContent()]);
-                }
+            if ($this->areThereAnyEmptyAccessAnnotation($docBlock)) {
+                $this->removeEmptyAccessAnnotations($docBlock);
+                $this->rewriteDocBlock($tokens, $docBlock, $position);
             }
         }
+    }
+
+    /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @return \PhpCsFixer\DocBlock\DocBlock[]
+     */
+    private function findAllDocBlocks(Tokens $tokens): array
+    {
+        return \array_map(function (Token $token) {
+            return new DocBlock($token->getContent());
+        }, $tokens->findGivenKind(\T_DOC_COMMENT));
+    }
+
+    /**
+     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
+     * @return bool
+     */
+    private function areThereAnyAccessAnnotation(DocBlock $docBlock): bool
+    {
+        $annotations = $docBlock->getAnnotationsOfType('access');
+
+        return !empty($annotations);
+    }
+
+    /**
+     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
+     * @return bool
+     */
+    private function areThereAnyEmptyAccessAnnotation(DocBlock $docBlock): bool
+    {
+        $annotations = $docBlock->getAnnotationsOfType('access');
+
+        foreach ($annotations as $annotation) {
+            if (\preg_match('~(public|protected|private)~', $annotation->getContent()) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
+     */
+    private function removeEmptyAccessAnnotations(DocBlock $docBlock): void
+    {
+        $annotations = $docBlock->getAnnotationsOfType('access');
+
+        foreach ($annotations as $annotation) {
+            if (\preg_match('~(public|protected|private)~', $annotation->getContent()) === 0) {
+                $annotation->remove();
+            }
+        }
+    }
+
+    /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param int $position
+     * @return bool
+     */
+    private function followingTokenIsAccessModifier(Tokens $tokens, int $position): bool
+    {
+        $nextMeaningfulTokenId = $tokens[$tokens->getNextMeaningfulToken($position)]->getId();
+
+        return \in_array($nextMeaningfulTokenId, self::ACCESS_TOKENS, true);
+    }
+
+    /**
+     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
+     */
+    private function removeAllAccessAnnotations(DocBlock $docBlock): void
+    {
+        $annotations = $docBlock->getAnnotationsOfType('access');
+
+        foreach ($annotations as $annotation) {
+            $annotation->remove();
+        }
+    }
+
+    /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
+     * @param int $position
+     */
+    private function rewriteDocBlock(Tokens $tokens, DocBlock $docBlock, int $position): void
+    {
+        if ($docBlock->getContent() === '' || $this->isDocBlockEmpty($docBlock)) {
+            $tokens->clearTokenAndMergeSurroundingWhitespace($position);
+        } else {
+            $tokens[$position] = new Token([T_DOC_COMMENT, $docBlock->getContent()]);
+        }
+    }
+
+    /**
+     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
+     * @return bool
+     */
+    private function isDocBlockEmpty(DocBlock $docBlock): bool
+    {
+        foreach ($docBlock->getLines() as $line) {
+            if ($line->containsUsefulContent()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -111,21 +211,6 @@ class Foo
      */
     public function supports(\SplFileInfo $file): bool
     {
-        return true;
-    }
-
-    /**
-     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
-     * @return bool
-     */
-    private function isDocBlockEmpty(DocBlock $docBlock): bool
-    {
-        foreach ($docBlock->getLines() as $line) {
-            if ($line->containsUsefulContent()) {
-                return false;
-            }
-        }
-
         return true;
     }
 }
