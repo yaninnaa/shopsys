@@ -24,10 +24,10 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         metadata_cache_driver:
             type: service
-            id: Doctrine\Common\Cache\ChainCache
+            id: Doctrine\Common\Cache\RedisCache
         query_cache_driver:
             type: service
-            id: Doctrine\Common\Cache\ChainCache
+            id: Doctrine\Common\Cache\RedisCache
         auto_mapping: false
         mappings:
             ShopsysFrameworkBundle:
