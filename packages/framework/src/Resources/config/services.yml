@@ -100,6 +100,12 @@ services:
         arguments:
             - '@snc_redis.doctrine_metadata'
 
+    shopsys.framework.cache_driver.annotations_cache:
+        class: Doctrine\Common\Cache\RedisCache
+        factory: 'Shopsys\FrameworkBundle\Component\Doctrine\Cache\RedisCacheFactory:create'
+        arguments:
+            - '@snc_redis.framework_annotations'
+
     Shopsys\FrameworkBundle\Model\AdminNavigation\BreadcrumbOverrider: ~
 
     Shopsys\FrameworkBundle\Model\AdminNavigation\SideMenuBuilder:

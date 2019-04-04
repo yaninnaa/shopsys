@@ -1,4 +1,9 @@
 framework:
+    annotations:
+        cache: shopsys.framework.cache_driver.annotations_cache
+    cache:
+        app: cache.adapter.redis
+        default_redis_provider: snc_redis.framework_cache
     secret: "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
