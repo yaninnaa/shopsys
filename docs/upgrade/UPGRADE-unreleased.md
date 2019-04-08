@@ -153,13 +153,6 @@ There you can find links to upgrade notes for other versions too.
     - and include `generate-build-version` and `clean-redis-old` to your build phing targets. Please find inspiration in [#886](https://github.com/shopsys/shopsys/pull/886/files)
     - once you finish this change (include the `build-version` into caches), you still should deal with older redis cache keys that don't use `build-version` prefix (16 digits).
       Such keys are not removed even by `clean-redis-old`, please find and remove them manually (via console or UI)
-- skip `Shopsys\CodingStandards\Sniffs\ForceLateStaticBindingForProtectedConstantsSniff` sniff in your `easy-coding-standard.yml`, so you won't be forced to use `static` on protected constants ([#904](https://github.com/shopsys/shopsys/pull/904))
-    - ```yaml
-        parameters:
-            skip:
-                Shopsys\CodingStandards\Sniffs\ForceLateStaticBindingForProtectedConstantsSniff:
-                    - '*'
-      ```
 - *(low priority)* remove option `choice_name` from `flags` and `brands` in `ShopBundle/Form/Front/Product/ProductFilterFormType.php` ([#891](https://github.com/shopsys/shopsys/pull/891))
 - create `Shopsys\ShopBundle\Model\AdvancedSearch\ProductAdvancedSearchConfig` by extending `Shopsys\FrameworkBundle\Model\AdvancedSearch\ProductAdvancedSearchConfig` ([#895](https://github.com/shopsys/shopsys/pull/895))
     - register `\Shopsys\FrameworkBundle\Model\AdvancedSearch\Filter\ProductCategoryFilter` filter via method `registerFilter` in constructor
@@ -176,6 +169,7 @@ There you can find links to upgrade notes for other versions too.
   If you want to use Doctrine inheritance mapping anyway, please skip `Shopsys\CodingStandards\Sniffs\ForbiddenDoctrineInheritanceSniff` ([#848](https://github.com/shopsys/shopsys/pull/848))
 - We require to have visibility specified for constants ([#904](https://github.com/shopsys/shopsys/pull/904))
   You can skip `Shopsys\CodingStandards\Sniffs\ConstantVisibilityRequiredSniff`, if it is not suits you
+- Skip `Shopsys\CodingStandards\Sniffs\ForceLateStaticBindingForProtectedConstantsSniff` sniff in your `easy-coding-standard.yml`, so you won't be forced to use `static` on protected constants ([#904](https://github.com/shopsys/shopsys/pull/904))
 
 [Upgrade from v7.0.0 to Unreleased]: https://github.com/shopsys/shopsys/compare/v7.0.0...HEAD
 [shopsys/framework]: https://github.com/shopsys/framework
