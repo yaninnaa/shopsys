@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\CodingStandards\Sniffs\ForceLateStaticBindingForProtectedConstantsSniff;
 
-class SelfWithMethods
+class SelfWithMethodsAndVariables
 {
     public const A = 'value';
     protected const B = 'value';
     private const C = 'value';
+
+    public static $publicProperty;
+
+    protected static $protectedProperty;
+
+    private static $privateProperty;
 
     public function method()
     {
@@ -18,7 +24,7 @@ class SelfWithMethods
         self::protectedStaticMethod();
         self::privateStaticMethod();
 
-        echo self::B;
+        echo static::B;
         self::class;
         self::publicStaticMethod();
         self::protectedStaticMethod();
@@ -31,8 +37,16 @@ class SelfWithMethods
         self::privateStaticMethod();
 
         echo self::A;
-        echo self::B;
+        echo static::B;
         echo self::C;
+
+        echo self::$publicProperty;
+        echo self::$protectedProperty;
+        echo self::$privateProperty;
+
+        echo static::$publicProperty;
+        echo static::$protectedProperty;
+        echo static::$privateProperty;
     }
 
     public static function publicStaticMethod()
